@@ -12,9 +12,9 @@ public class DatabaseConnector {
     {
         dataSource = new SQLServerDataSource();
         dataSource.setServerName("10.176.111.31");
-        dataSource.setDatabaseName("");
-        dataSource.setUser("");
-        dataSource.setPassword("");
+        dataSource.setDatabaseName("My_Tunes_4");
+        dataSource.setUser("CSe22A_4");
+        dataSource.setPassword("CSe22A_4");
         dataSource.setTrustServerCertificate(true);
     }
 
