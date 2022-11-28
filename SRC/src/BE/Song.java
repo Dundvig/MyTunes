@@ -1,6 +1,7 @@
 package BE;
 
 public class Song {
+    private final int time;
     private String title; // Title of the track.
     private String artist; // Name of the artist.
     private String album; // Name of the album on which the song is featured.
@@ -10,7 +11,7 @@ public class Song {
     private final int ID;
 
     // Constructor for our Song.
-    public Song(String title, String artist, String album, String genre, int year, String url, int id) {
+    public Song(String title, String artist, String album, String genre, int year, String url, int id, int time) {
         this.title = title;
         this.artist = artist;
         this.album = album;
@@ -18,6 +19,7 @@ public class Song {
         this.year = year;
         this.URL = url;
         this.ID = id;
+        this.time = time;
     }
 
     public String getTitle() {
