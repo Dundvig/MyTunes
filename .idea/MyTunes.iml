@@ -5,7 +5,7 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="application" />
     <orderEntry type="library" name="javax.json.bind.api" level="application" />
+    <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="project" />
   </component>
 </module>
