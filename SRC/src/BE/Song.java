@@ -1,7 +1,7 @@
 package BE;
 
 public class Song {
-    private final int time;
+    private final int time; // Total duration of the song in seconds.
     private String title; // Title of the track.
     private String artist; // Name of the artist.
     private String album; // Name of the album on which the song is featured.
@@ -21,7 +21,6 @@ public class Song {
         this.ID = id;
         this.time = time;
     }
-
     public String getTitle() {
         return title;
     }
