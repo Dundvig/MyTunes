@@ -1,10 +1,14 @@
 package GUI.Controller;
 
+import GUI.Model.MyTunesModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,10 +24,27 @@ public class MyTunesController implements Initializable {
     public ImageView imgPlay;
     public ImageView imgNext;
     public ImageView imgVolume;
+    public Button btnClose;
+    private MyTunesModel myTunesModel;
+    public MyTunesController() {
+        try {
+            myTunesModel = new MyTunesModel();
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
+    }
+
+    private void displayError(Throwable t) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Something went wrong");
+        alert.setHeaderText(t.getMessage());
+        alert.showAndWait();
     }
 
     public void handleNewPlaylist(ActionEvent actionEvent) {
@@ -57,6 +78,10 @@ public class MyTunesController implements Initializable {
     }
 
     public void handleClose(ActionEvent actionEvent) {
+        //get the stage
+        Stage stage = (Stage) btnClose.getScene().getWindow();
+        //close the stage
+        stage.close();
     }
 
     public void handleSearch(ActionEvent actionEvent) {

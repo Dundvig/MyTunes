@@ -3,6 +3,10 @@ package DAL.db;
 import BE.Song;
 import DAL.ISongDatabaseAccess;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongDAO_DB implements ISongDatabaseAccess {
@@ -13,7 +17,28 @@ public class SongDAO_DB implements ISongDatabaseAccess {
 
     @Override
     public List<Song> getAllSongs() throws Exception {
-        return null;
+        ArrayList<Song> allSongs = new ArrayList<>();
+
+        try (Connection conn = databaseConnector.getConnection()) {
+            String sql = "SELECT * FROM Song";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                int id = rs.getInt("Id");
+                String title = rs.getString("Title");
+                String artist = rs.getString("Artist");
+                String album = rs.getString("Album");
+                String genre = rs.getString("Genre");
+                String url = rs.getString("URL");
+                int year = rs.getInt("Year");
+                int time = rs.getInt("Time");
+
+                Song song = new Song(title, artist, album, genre, year, url, id, time);
+                allSongs.add(song);
+            }
+            return allSongs;
+        }
     }
 
     @Override
