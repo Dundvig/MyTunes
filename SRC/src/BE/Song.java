@@ -72,4 +72,8 @@ public class Song {
     public int getID() {
         return ID;
     }
+
+    public int getTime() {
+        return time;
+    }
 }
