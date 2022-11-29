@@ -2,7 +2,6 @@ package DAL.db;
 
 import BE.Playlist;
 import DAL.IPlaylistDatabaseAcces;
-import DAL.ISongDatabaseAccess;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -50,7 +49,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
     // Creates a new playlist.
     @Override
     public Playlist createPlaylist(String title, int totalSongs, int ID, int time) throws Exception {
-        String sql = "INSERT INTO Playlist (Title, totalSongs, time) VALUES (?,?,?);";
+        String sql = "INSERT INTO Playlist (Title, totalSongs, Time) VALUES (?,?,?);";
 
         try (Connection connection = databaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
