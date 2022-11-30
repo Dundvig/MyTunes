@@ -1,6 +1,8 @@
 package GUI.Controller;
 
+import BE.Song;
 import GUI.Model.MyTunesModel;
+import GUI.Model.SongModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -13,14 +15,8 @@ public class EditSongController {
 
     public TextField txtArtist;
     public Button CancelSaveSong;
-    private MyTunesModel myTunesModel;
+    private SongModel songModel;
     public EditSongController(){
-        try{
-            myTunesModel = new MyTunesModel();
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
     public void handleCancelSaveSong(ActionEvent actionEvent) {
@@ -30,9 +26,18 @@ public class EditSongController {
     }
 
     public void handleSaveSong(ActionEvent actionEvent) {
-        //Get/add the values for the song so it can be added or changed.
-        String title = txtTitle.getText();
-        String artist = txtArtist.getText();
-        //TODO DO THIS
+
+        try{
+            MyTunesController mtc = new MyTunesController();
+            Song updatedSong = mtc.lstSong.getSelectionModel().getSelectedItem();
+            updatedSong.setTitle(txtTitle.getText());
+            updatedSong.setArtist(txtArtist.getText());
+
+            songModel.updateSong(updatedSong);
+
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
