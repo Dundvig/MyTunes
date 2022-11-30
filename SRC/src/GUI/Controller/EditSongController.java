@@ -24,12 +24,15 @@ public class EditSongController {
     }
 
     public void handleCancelSaveSong(ActionEvent actionEvent) {
+        //Close the window by clicking the cancel bottom.
         Stage stage = (Stage) CancelSaveSong.getScene().getWindow();
         stage.close();
     }
 
     public void handleSaveSong(ActionEvent actionEvent) {
+        //Get/add the values for the song so it can be added or changed.
         String title = txtTitle.getText();
         String artist = txtArtist.getText();
+        //TODO DO THIS
     }
 }

@@ -16,7 +16,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     @Override
     public List<Song> getAllSongs() throws Exception {
         ArrayList<Song> allSongs = new ArrayList<>();
-
+    //Get a list of all songs
         try (Connection conn = databaseConnector.getConnection()) {
             String sql = "SELECT * FROM Song";
             Statement stmt = conn.createStatement();
@@ -42,7 +42,8 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     @Override
     public Song createSong(String title, String artist, String album, String genre, int year, String URL, int ID, int time) throws Exception{
         String sql = "INSERT INTO Song(Title, Artist, Album, Genre, Year, URL, Time) VALUES(?,?,?,?,?,?,?)";
-
+        //Create a new song based on a list of parameters.
+        // This song is going to be added to the database with a SQL Query.
         try(Connection connection = databaseConnector.getConnection())
         {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -77,7 +78,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     @Override
     public void updateSong(Song song) throws Exception {
         String sql = "UPDATE Song SET Title = ?, Artist = ?, Album = ?, Genre = ?, Year = ?, URL = ?, Time = ? WHERE Id = ?";
-
+        //Update a song in the database by changing some parameters.
         try(Connection connection = databaseConnector.getConnection()){
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -102,6 +103,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     public Song deleteSong(Song song) throws Exception {
         try(Connection connection = databaseConnector.getConnection()){
             String sql = "DELETE FROM Song WHERE Id = ?";
+            //Delete a song from the database.
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, song.getID());
             int affectedRows = preparedStatement.executeUpdate();

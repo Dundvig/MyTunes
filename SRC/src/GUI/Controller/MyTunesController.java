@@ -73,6 +73,7 @@ public class MyTunesController implements Initializable {
     }
 
     public void handleNewSong(ActionEvent actionEvent) throws IOException {
+        //Opens the add/edit song window.
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditSongView.fxml"));
         Parent root = loader.load();
@@ -81,11 +82,8 @@ public class MyTunesController implements Initializable {
     }
 
     public void handleEditSong(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditSongView.fxml"));
-        Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        stage.show();
+        //Opens the Add/edit song window.
+        handleNewSong(actionEvent);
     }
 
     public void handleDeleteSong(ActionEvent actionEvent) {
