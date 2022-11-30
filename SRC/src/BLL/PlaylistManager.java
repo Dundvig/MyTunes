@@ -27,8 +27,8 @@ public class PlaylistManager {
     }
 
     // Creates a new playlist
-    public Playlist createNewPlaylist(String title, int totalSongs, int id, int duration) throws Exception {
-        return playlistDAO.createPlaylist(title, totalSongs, id, duration);
+    public Playlist createNewPlaylist(String title, int totalSongs, int id, int time) throws Exception {
+        return playlistDAO.createPlaylist(title, totalSongs, id, time);
     }
 
     // Updates the selected playlist

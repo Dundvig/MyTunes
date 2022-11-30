@@ -40,9 +40,9 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     }
 
     @Override
-    public Song createSong(String title, String artist, String album, String genre, int year, String URL, int Id, int duration) throws Exception {
+    public Song createSong(String title, String artist, String album, String genre, int year, String URL, int Id, int time) throws Exception {
         
-            String sql = "INSERT INTO song (Title, Artist, Album, Genre, Year, URL, duration) VALUES (?,?,?,?,?,?,?);";
+            String sql = "INSERT INTO song (Title, Artist, Album, Genre, Year, URL, Time) VALUES (?,?,?,?,?,?,?);";
 
             try (Connection connection = databaseConnector.getConnection()) {
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -55,7 +55,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 statement.setString(4, genre);
                 statement.setInt(5, year);
                 statement.setString(6, URL);
-                statement.setInt(7, duration);
+                statement.setInt(7, time);
 
                 //Run the specified SQL statement.
                 statement.executeUpdate();
@@ -69,7 +69,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 }
 
                 //Create movie object and send up the layers.
-                Song song = new Song(genre, title, artist, album, id, URL, year, duration);
+                Song song = new Song(genre, title, artist, album, id, URL, year, time);
                 return song;
             }
             catch (SQLException ex) {
@@ -83,7 +83,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
         public void updateSong(Song song) throws Exception {
             try (Connection connection = databaseConnector.getConnection()) {
 
-                String sql = "UPDATE song SET Title = ?, Artist = ? , Album = ?, Genre = ?, Year = ?, URL = ?, Duration = ? WHERE Id = ?";
+                String sql = "UPDATE song SET Title = ?, Artist = ? , Album = ?, Genre = ?, Year = ?, URL = ?, Time = ? WHERE Id = ?";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
 
@@ -92,7 +92,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 statement.setString(3, song.getAlbum());
                 statement.setString(4, song.getGenre());
                 statement.setInt(5, song.getYear());
-                statement.setInt(6, song.getDuration());
+                statement.setInt(6, song.getTime());
                 statement.setString(7, song.getURL());
                 statement.setInt(8, song.getId());
 

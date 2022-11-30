@@ -26,10 +26,10 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
                 while(resultSet.next()) {
                     int id = resultSet.getInt("Id");
                     String title = resultSet.getString("Title");
-                    int duration = resultSet.getInt("Duration");
+                    int time = resultSet.getInt("Time");
                     int totalSongs = resultSet.getInt("TotalSongs");
 
-                    Playlist playlist = new Playlist(id, title, duration, totalSongs);
+                    Playlist playlist = new Playlist(id, title, time, totalSongs);
                     allPlaylists.add(playlist);
                 }
             }
@@ -48,8 +48,8 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
 
     // Creates a new playlist.
     @Override
-    public Playlist createPlaylist(String title, int totalSongs, int ID, int duration) throws Exception {
-        String sql = "INSERT INTO Playlist (Title, totalSongs, duration) VALUES (?,?,?);";
+    public Playlist createPlaylist(String title, int totalSongs, int ID, int time) throws Exception {
+        String sql = "INSERT INTO Playlist (Title, totalSongs, Time) VALUES (?,?,?);";
 
         try (Connection connection = databaseConnector.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -58,7 +58,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
             //Bind parameters.
             statement.setString(1, title);
             statement.setInt(2, totalSongs);
-            statement.setInt(3, duration);
+            statement.setInt(3, time);
 
             //Run the specified SQL statement.
             statement.executeUpdate();
@@ -72,7 +72,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
             }
 
             //Create movie object and send up the layers.
-            Playlist playlist = new Playlist(id, title, totalSongs, duration);
+            Playlist playlist = new Playlist(id, title, totalSongs, time);
             return playlist;
         }
         catch (SQLException ex) {
@@ -86,13 +86,13 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
     public void updatePlaylist(Playlist playlist) throws Exception {
         try (Connection connection = databaseConnector.getConnection()) {
 
-            String sql = "UPDATE Playlist SET Title = ?, TotalSongs = ? , Duration = ? WHERE Id = ?";
+            String sql = "UPDATE Playlist SET Title = ?, TotalSongs = ? , Time = ? WHERE Id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
             statement.setString(1, playlist.getTitle());
             statement.setInt(2, playlist.getTotalSongs());
-            statement.setInt(3, playlist.getDuration());
+            statement.setInt(3, playlist.getTime());
             statement.setInt(4, playlist.getId());
 
 

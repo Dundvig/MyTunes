@@ -6,7 +6,7 @@ public class Playlist {
 
     //private List<Song>
 
-    private final int duration; // The entire duration of the playlist.
+    private final int time; // The entire duration of the playlist.
 
     private String title; // The title of the playlist.
 
@@ -15,15 +15,15 @@ public class Playlist {
     private int id; // The id of the playlist.
 
     // Constructor for the playlist.
-    public Playlist(int id, String title, int totalSongs, int duration) {
-        this.duration = duration;
+    public Playlist(int id, String title, int totalSongs, int time) {
+        this.time = time;
         this.id = id;
         this.totalSongs = totalSongs;
         this.title = title;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getTime() {
+        return time;
     }
 
     public String getTitle() {

@@ -32,8 +32,8 @@ public class SongModel {
     }
 
     // Creates a new Song
-    public void createSong(String title, String artist, String album, String genre, int year, String url, int id, int duration) throws Exception {
-        Song p = songManager.createSong(title, id, duration, album, genre, url, year, artist);
+    public void createSong(String title, String artist, String album, String genre, int year, String url, int id, int time) throws Exception {
+        Song p = songManager.createSong(title, artist, album, genre, year, url, id, time);
         System.out.println(p.toString());
     }
 

@@ -1,7 +1,7 @@
 package BE;
 
 public class Song {
-    private final int duration; // Total duration of the song in seconds.
+    private final int time; // Total time of the song in seconds.
     private String title; // Title of the track.
     private String artist; // Name of the artist.
     private String album; // Name of the album on which the song is featured.
@@ -11,7 +11,7 @@ public class Song {
     private final int id;
 
     // Constructor for our Song.
-    public Song(String title, String artist, String album, String genre, int year, String url, int id, int duration) {
+    public Song(String title, String artist, String album, String genre, int year, String url, int id, int time) {
         this.title = title;
         this.artist = artist;
         this.album = album;
@@ -19,7 +19,7 @@ public class Song {
         this.year = year;
         this.URL = url;
         this.id = id;
-        this.duration = duration;
+        this.time = time;
     }
     public String getTitle() {
         return title;
@@ -76,7 +76,7 @@ public class Song {
         return id;
     }
 
-    public int getDuration() {
-        return duration;
+    public int getTime() {
+        return time;
     }
 }
