@@ -1,5 +1,6 @@
 package BLL;
 
+
 import BE.Song;
 import DAL.ISongDatabaseAccess;
 import DAL.db.SongDAO_DB;
@@ -7,7 +8,9 @@ import DAL.db.SongDAO_DB;
 import java.util.List;
 
 public class SongManager {
-        private ISongDatabaseAccess songDAO_DB;
+
+
+    private ISongDatabaseAccess songDAO_DB;
 
         public SongManager() {
             songDAO_DB = new SongDAO_DB();
