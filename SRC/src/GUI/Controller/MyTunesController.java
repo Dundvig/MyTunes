@@ -44,7 +44,7 @@ public class MyTunesController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        
+        lstSong.setItems(myTunesModel.getObservableSongs());
     }
 
     private void displayError(Throwable t) {

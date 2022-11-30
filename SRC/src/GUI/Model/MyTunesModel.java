@@ -15,4 +15,8 @@ public class MyTunesModel {
             songsToBeViewed = FXCollections.observableArrayList();
             songsToBeViewed.addAll(songManager.getAllSongs());
         }
+
+        public ObservableList<Song> getObservableSongs() {
+            return songsToBeViewed;
+        }
 }

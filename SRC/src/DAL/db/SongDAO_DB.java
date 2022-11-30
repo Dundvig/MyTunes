@@ -36,6 +36,9 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 allSongs.add(song);
             }
             return allSongs;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not get songs from database", ex);
         }
     }
 
