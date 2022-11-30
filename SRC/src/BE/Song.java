@@ -1,25 +1,25 @@
 package BE;
 
 public class Song {
-    private final int time; // Total duration of the song in seconds.
+    private final int duration; // Total duration of the song in seconds.
     private String title; // Title of the track.
     private String artist; // Name of the artist.
     private String album; // Name of the album on which the song is featured.
     private String genre; // Musical genre of the track.
     private int year; // The year the song came out.
     private String URL; // Path to the song in the recourse folder.
-    private final int ID;
+    private final int id;
 
     // Constructor for our Song.
-    public Song(String title, String artist, String album, String genre, int year, String url, int id, int time) {
+    public Song(String title, String artist, String album, String genre, int year, String url, int id, int duration) {
         this.title = title;
         this.artist = artist;
         this.album = album;
         this.genre = genre;
         this.year = year;
         this.URL = url;
-        this.ID = id;
-        this.time = time;
+        this.id = id;
+        this.duration = duration;
     }
     public String getTitle() {
         return title;
@@ -73,11 +73,11 @@ public class Song {
         }
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public int getTime() {
-        return time;
+    public int getDuration() {
+        return duration;
     }
 }
