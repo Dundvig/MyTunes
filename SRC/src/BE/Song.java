@@ -67,6 +67,10 @@ public class Song {
 
     public void setURL(String URL) {
         this.URL = URL;
+        //check if the file ends with .mp3 or .wav
+        if (URL.endsWith(".mp3") || URL.endsWith(".wav")) {
+            this.URL = URL;
+        }
     }
 
     public int getID() {
