@@ -1,6 +1,8 @@
 package GUI.Controller;
 
+import BE.Song;
 import GUI.Model.MyTunesModel;
+import GUI.Model.SongModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -19,7 +21,7 @@ import java.util.ResourceBundle;
 
 public class MyTunesController implements Initializable {
 
-    public ListView lstSong;
+    public ListView<Song> lstSong;
     public ImageView imgSearch;
     public ImageView imgUpArrow;
     public ImageView imgDownArrow;
@@ -30,6 +32,7 @@ public class MyTunesController implements Initializable {
     public ImageView imgVolume;
     public Button btnClose;
     private MyTunesModel myTunesModel;
+    private SongModel songModel;
     public MyTunesController() {
         try {
             myTunesModel = new MyTunesModel();
@@ -88,6 +91,12 @@ public class MyTunesController implements Initializable {
     }
 
     public void handleDeleteSong(ActionEvent actionEvent) {
+        try {
+            Song song = lstSong.getSelectionModel().getSelectedItem();
+            songModel.deleteSong(song);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void handleClose(ActionEvent actionEvent) {
