@@ -32,8 +32,8 @@ public class PlaylistModel {
     }
 
     // Creates a new playlist
-    public void createNewPlaylist(String title, int time, int totalSongs, int id) throws Exception {
-        Playlist p = playlistManager.createNewPlaylist(title, totalSongs, time, id);
+    public void createNewPlaylist(String title, int duration, int totalSongs, int id) throws Exception {
+        Playlist p = playlistManager.createNewPlaylist(title, totalSongs, duration, id);
         System.out.println(p.toString());
     }
 
