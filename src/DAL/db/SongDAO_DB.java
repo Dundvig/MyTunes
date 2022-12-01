@@ -27,10 +27,10 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 String title = rs.getString("Title");
                 String artist = rs.getString("Artist");
                 String genre = rs.getString("Genre");
+                int timer = rs.getInt("Time");
                 String url = rs.getString("URL");
-                int time = rs.getInt("Time");
 
-                Song song = new Song(title, artist, genre, url, id, time);
+                Song song = new Song(id, title, artist, genre, timer, url);
                 allSongs.add(song);
             }
             return allSongs;
@@ -41,20 +41,21 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     }
 
     @Override
-    public Song createSong(String title, String artist, String genre, String URL, int Id, int time) throws Exception {
+    public Song createSong(String title, String artist, String genre, int timer, String URL) throws Exception {
         
-            String sql = "INSERT INTO song (Title, Artist, Genre, URL, Time) VALUES (?,?,?,?,?);";
+            String sql = "INSERT INTO song (Title, Artist, Genre, Time, URL) VALUES (?,?,?,?,?);";
 
             try (Connection connection = databaseConnector.getConnection()) {
                 PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 
                 //Bind parameters.
+
                 statement.setString(1, title);
                 statement.setString(2, artist);
                 statement.setString(3, genre);
-                statement.setString(4, URL);
-                statement.setInt(5, time);
+                statement.setInt(4, timer);
+                statement.setString(5, URL);
 
                 //Run the specified SQL statement.
                 statement.executeUpdate();
@@ -68,7 +69,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 }
 
                 //Create song object and send up the layers.
-                Song song = new Song(genre, title, artist, URL, id, time);
+                Song song = new Song(id, title, artist, genre, timer, URL);
                 return song;
             }
             catch (SQLException ex) {
@@ -79,19 +80,19 @@ public class SongDAO_DB implements ISongDatabaseAccess {
 
         // Updates a song.
         @Override
-        public void updateSong(Song song) throws Exception {
+        public void updateSong(Song updatedsong) throws Exception {
             try (Connection connection = databaseConnector.getConnection()) {
 
-                String sql = "UPDATE song SET Title = ?, Artist = ?, Genre = ?, URL = ?, Time = ? WHERE Id = ?";
+                String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, Time = ?, URL = ? WHERE Id = ?";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
 
-                statement.setString(1, song.getTitle());
-                statement.setString(2, song.getArtist());
-                statement.setString(3, song.getGenre());
-                statement.setInt(4, song.getTime());
-                statement.setString(5, song.getURL());
-                statement.setInt(6, song.getId());
+                statement.setString(1, updatedsong.getTitle());
+                statement.setString(2, updatedsong.getArtist());
+                statement.setString(3, updatedsong.getGenre());
+                statement.setInt(4, updatedsong.getTimer());
+                statement.setString(5, updatedsong.getURL());
+                statement.setInt(6, updatedsong.getId());
 
 
                 statement.executeUpdate();
@@ -107,7 +108,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
         @Override
         public void deleteSong(Song song) throws Exception {
             try (Connection connection = databaseConnector.getConnection()) {
-                String sql = "DELETE FROM song WHERE id = ?";
+                String sql = "DELETE FROM Song WHERE id = ?";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
 

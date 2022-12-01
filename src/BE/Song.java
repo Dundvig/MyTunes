@@ -1,22 +1,27 @@
 package BE;
 
 public class Song {
-    private final int time; // Total time of the song in seconds.
+    private int id;
     private String title; // Title of the track.
     private String artist; // Name of the artist.
     private String genre; // Musical genre of the track.
-    private String URL; // Path to the song in the recourse folder.
-    private final int id;
+    private int timer; // Total time of the song in seconds.
+    private String url; // Path to the song in the recourse folder.
 
     // Constructor for our Song.
-    public Song(String title, String artist, String genre, String url, int id, int time) {
+    public Song(int id, String title, String artist, String genre, int timer, String url) {
+        this.id = id;
         this.title = title;
         this.artist = artist;
         this.genre = genre;
-        this.URL = url;
-        this.id = id;
-        this.time = time;
+        this.timer = timer;
+        this.url = url;
+
     }
+    public int getId() {
+        return id;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -41,22 +46,21 @@ public class Song {
         this.genre = genre;
     }
 
+    public int getTimer() {
+        return timer;
+    }
+    public void setTimer(int timer){this.timer = timer;}
+
     public String getURL() {
-        return URL;
+        return url;
     }
 
     public void setURL(String URL) {
         //check if the file ends with .mp3 or .wav
         if (URL.endsWith(".mp3") || URL.endsWith(".wav")) {
-            this.URL = URL;
+            this.url = URL;
         }
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public int getTime() {
-        return time;
-    }
+    @Override
+    public String toString(){return title + ",  " + artist + ", " + genre + ", " + timer;}
 }
