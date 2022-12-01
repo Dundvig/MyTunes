@@ -12,6 +12,8 @@ public class SongModel {
 
     private SongManager songManager;
 
+    private Song selectedSong;
+
     // Constructor for the model
     public SongModel() throws Exception {
         songManager = new SongManager();
@@ -32,9 +34,9 @@ public class SongModel {
     }
 
     // Creates a new Song
-    public void createSong(String title, String artist, String genre, String url, int id, int time) throws Exception {
-        Song p = songManager.createSong(title, artist, genre, url, id, time);
-        System.out.println(p.toString());
+    public void createSong(String title, String artist, String genre, int timer, String url) throws Exception {
+        Song s = songManager.createSong(title, artist, genre, timer, url);
+        songsToBeViewed.add(s);
     }
 
     // Updates the Song
@@ -53,6 +55,11 @@ public class SongModel {
         songManager.deleteSong(deletedSong);
 
         songsToBeViewed.remove(deletedSong);
+    }
+    public Song getSelectedSong(){return selectedSong;}
+
+    public void setSelectedSong(Song selectedSong){
+        this.selectedSong = selectedSong;
     }
 
 }

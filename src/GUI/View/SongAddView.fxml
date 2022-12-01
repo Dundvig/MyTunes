@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+
+<AnchorPane prefHeight="166.0" prefWidth="441.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.SongAddController">
+   <children>
+      <HBox prefHeight="42.0" prefWidth="421.0" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <TextField fx:id="txtTitle" prefHeight="26.0" prefWidth="214.0" promptText="Title" />
+            <TextField fx:id="txtArtist" prefHeight="26.0" prefWidth="179.0" promptText="Artist">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
+      <Button fx:id="btnAddSong" layoutX="371.0" layoutY="122.0" mnemonicParsing="false" onAction="#handleAdd" text="Add" />
+      <HBox layoutX="10.0" layoutY="83.0" prefHeight="42.0" prefWidth="421.0">
+         <children>
+            <TextField fx:id="txtGenre" promptText="Genre" />
+            <TextField fx:id="txtTimer" promptText="Timer" />
+            <TextField fx:id="txtURL" promptText="URL" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

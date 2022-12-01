@@ -6,6 +6,7 @@ import GUI.Model.SongModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -13,7 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
 
@@ -21,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MyTunesController implements Initializable {
+public class MyTunesController extends AbstractController implements Initializable {
 
     public ListView<Song> lstSong;
     public ImageView imgSearch;
@@ -36,19 +39,17 @@ public class MyTunesController implements Initializable {
     private MyTunesModel myTunesModel;
     private SongModel songModel;
     public MyTunesController() {
-        try {
-            myTunesModel = new MyTunesModel();
-        } catch (Exception e) {
-            displayError(e);
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        lstSong.setItems(myTunesModel.getObservableSongs());
     }
+    @Override
+    public void setup() {
+        songModel = getModel().getSongModel();
 
+        lstSong.setItems(songModel.getObservableSongs());
+    }
     private void displayError(Throwable t) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Something went wrong");
@@ -85,24 +86,43 @@ public class MyTunesController implements Initializable {
     }
 
     public void handleNewSong(ActionEvent actionEvent) throws IOException {
-        //Opens the add/edit song window.
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditSongView.fxml"));
-        Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        stage.setTitle("Add/Edit Song");
-        stage.show();
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/GUI/View/SongAddView.fxml"));
+        AnchorPane pane = (AnchorPane) loader.load();
+
+        Stage dialogWindow = new Stage();
+        dialogWindow.setTitle("Add Song");
+        dialogWindow.initModality(Modality.WINDOW_MODAL);
+        dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+        Scene scene = new Scene(pane);
+        dialogWindow.setScene(scene);
+        dialogWindow.show();
     }
 
     public void handleEditSong(ActionEvent actionEvent) throws IOException {
-        //Opens the Add/edit song window.
-        handleNewSong(actionEvent);
+        Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
+        songModel.setSelectedSong(selectedSong);
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/GUI/View/EditSongView.fxml"));
+        AnchorPane pane = (AnchorPane) loader.load();
+
+        EditSongController controller = loader.getController();
+        controller.setModel(super.getModel());
+        controller.setup();
+
+        Stage dialogWindow = new Stage();
+        dialogWindow.setTitle("Edit Song information");
+        dialogWindow.initModality(Modality.WINDOW_MODAL);
+        dialogWindow.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
+        Scene scene = new Scene(pane);
+        dialogWindow.setScene(scene);
+        dialogWindow.show();
     }
 
     public void handleDeleteSong(ActionEvent actionEvent) {
         try {
-            Song song = lstSong.getSelectionModel().getSelectedItem();
-            songModel.deleteSong(song);
+            songModel.deleteSong(songModel.getSelectedSong());
         } catch (Exception e){
             e.printStackTrace();
         }

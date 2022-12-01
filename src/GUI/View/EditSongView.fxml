@@ -20,6 +20,7 @@
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="341.99999618530273" minWidth="10.0" prefWidth="321.20001220703125" />
         </columnConstraints>
         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -27,37 +28,37 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-               <children>
-                  <TextField fx:id="txtTitle" prefHeight="26.0" prefWidth="321.0" />
-               </children>
-            </FlowPane>
             <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <TextField fx:id="txtArtist" prefHeight="26.0" prefWidth="321.0" />
                </children>
             </FlowPane>
-            <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
                <children>
                   <ChoiceBox fx:id="cboxCategory" prefWidth="150.0" />
                </children>
             </FlowPane>
-            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <FlowPane alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <children>
+                  <TextField fx:id="txtTimer" prefHeight="26.0" prefWidth="321.0" />
+               </children>
+            </FlowPane>
+            <FlowPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <FlowPane alignment="CENTER_LEFT" prefHeight="44.0" prefWidth="322.0">
                      <children>
-                        <TextField fx:id="txtUrl" prefHeight="26.0" prefWidth="230.0" />
                         <Button mnemonicParsing="false" text="Choose...">
                            <FlowPane.margin>
                               <Insets left="20.0" />
                            </FlowPane.margin>
                         </Button>
+                        <TextField fx:id="txtUrl" prefHeight="26.0" prefWidth="230.0" />
                      </children>
                   </FlowPane>
                </children></FlowPane>
-            <FlowPane alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <FlowPane alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="321.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
-                  <Button fx:id="btnCancelSaveSong" mnemonicParsing="false" onAction="#handleCancelSaveSong" text="Cancel">
+                  <Button fx:id="btnCancelSaveSong" alignment="TOP_CENTER" mnemonicParsing="false" onAction="#handleCancelSaveSong" text="Cancel">
                      <FlowPane.margin>
                         <Insets right="20.0" />
                      </FlowPane.margin>
@@ -93,13 +94,19 @@
                   <Insets right="5.0" />
                </GridPane.margin>
             </Text>
-            <Text layoutX="5.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL:" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER">
+            <Text layoutX="5.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="URL:" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="CENTER">
                <font>
                   <Font size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets right="5.0" />
                </GridPane.margin>
+            </Text>
+            <TextField fx:id="txtTitle" prefHeight="26.0" prefWidth="321.0" GridPane.columnIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Time:" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
             </Text>
          </children>
       </GridPane>

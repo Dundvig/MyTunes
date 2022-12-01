@@ -20,7 +20,7 @@ public class SongSearcher {
     }
 
     private boolean compareToSonglistTime(String query, Song song) {
-        return Integer.toString(song.getTime()).contains(query);
+        return Integer.toString(song.getTimer()).contains(query);
     }
 
     private boolean compareToSongTitle(String query, Song song) {
