@@ -90,7 +90,7 @@ public class MyTunesController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditSongView.fxml"));
         Parent root = loader.load();
         stage.setScene(new Scene(root));
-        stage.setTitle("New Song");
+        stage.setTitle("Add/Edit Song");
         stage.show();
     }
 

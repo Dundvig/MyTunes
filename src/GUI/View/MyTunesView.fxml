@@ -72,7 +72,7 @@
                      <graphic>
                         <ImageView fx:id="imgUpArrow" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Resources/Images/arrowup.png" />
+                              <Image url="/Images/arrowup.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -84,7 +84,7 @@
                      <graphic>
                         <ImageView fx:id="imgDownArrow" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../../Resources/Images/arrowdoqn.png" />
+                              <Image url="/Images/arrowdoqn.png" />
                            </image>
                         </ImageView>
                      </graphic>
@@ -103,7 +103,7 @@
                <graphic>
                   <ImageView fx:id="imgLeftArrow" fitHeight="15.0" fitWidth="15.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../Resources/Images/arrowleft.png" />
+                        <Image url="/Images/arrowleft.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -148,7 +148,7 @@
                <graphic>
                   <ImageView fx:id="imgSearch" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../Resources/Images/whotheheck.png" />
+                        <Image url="/Images/whotheheck.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -164,7 +164,7 @@
                <graphic>
                   <ImageView fx:id="imgBack" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../Resources/Images/pilenbollerigen.png" />
+                        <Image url="/Images/pilenbollerigen.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -176,7 +176,7 @@
                <graphic>
                   <ImageView fx:id="imgPlay" fitHeight="50.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../Resources/Images/Play.png" />
+                        <Image url="/Images/Play.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -185,7 +185,7 @@
                <graphic>
                   <ImageView fx:id="imgNext" blendMode="MULTIPLY" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../Resources/Images/pilenboller.png" />
+                        <Image url="/Images/pilenboller.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -200,7 +200,7 @@
       </Text>
       <ImageView fx:id="imgVolume" fitHeight="35.0" fitWidth="35.0" layoutX="14.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../Resources/Images/sutpik.png" />
+            <Image url="/Images/sutpik.png" />
          </image>
       </ImageView>
    </children>
