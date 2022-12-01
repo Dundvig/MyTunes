@@ -31,8 +31,8 @@ public class SongManager {
     }
 
     // Creates a new Song
-    public Song createSong(String title, String artist, String album, String genre, int year, String url, int id, int time) throws Exception {
-        return songDAO.createSong(title, artist, album, genre, year, url, id, time);
+    public Song createSong(String title, String artist, String genre, String url, int id, int duration) throws Exception {
+        return songDAO.createSong(title, artist, genre, url, id, duration);
     }
 
     // Updates the selected Song

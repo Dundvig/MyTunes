@@ -13,7 +13,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.Media;
 import javafx.stage.Stage;
+import javafx.scene.media.MediaPlayer;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +56,14 @@ public class MyTunesController implements Initializable {
         alert.showAndWait();
     }
 
-    public void handleNewPlaylist(ActionEvent actionEvent) {
+    // Opens a new window to create a new playlist with title.
+    public void handleNewPlaylist(ActionEvent actionEvent) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditPlaylistView.fxml"));
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+        stage.setTitle("New Playlist");
+        stage.show();
     }
 
     public void handleEditPlaylist(ActionEvent actionEvent) {
@@ -110,12 +119,16 @@ public class MyTunesController implements Initializable {
     }
 
     public void handleBack(ActionEvent actionEvent) {
+
     }
 
     public void handlePlay(ActionEvent actionEvent) {
+        MediaPlayer mp = new MediaPlayer(new Media(""));
+        mp.play();
     }
 
     public void handleNext(ActionEvent actionEvent) {
+
     }
 
     public void handleVolume(MouseEvent mouseEvent) {

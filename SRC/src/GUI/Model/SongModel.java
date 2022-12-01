@@ -32,8 +32,8 @@ public class SongModel {
     }
 
     // Creates a new Song
-    public void createSong(String title, String artist, String album, String genre, int year, String url, int id, int time) throws Exception {
-        Song p = songManager.createSong(title, artist, album, genre, year, url, id, time);
+    public void createSong(String title, String artist, String genre, String url, int id, int time) throws Exception {
+        Song p = songManager.createSong(title, artist, genre, url, id, time);
         System.out.println(p.toString());
     }
 
@@ -54,4 +54,5 @@ public class SongModel {
 
         songsToBeViewed.remove(deletedSong);
     }
+
 }
