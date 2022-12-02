@@ -29,7 +29,7 @@ public class EditSongController extends AbstractController {
     public TextField txtUrl;
     public TextField txtTimer;
     private SongModel songModel;
-    private String[] category = {
+    private final String[] category = {
             "Pop",
             "Rock",
             "Blues",
@@ -91,14 +91,18 @@ public class EditSongController extends AbstractController {
     }
 
     public void handleFileChooser(ActionEvent actionEvent) {
+        //create a new stage for picking files with the title "Pick a Song" and start in the applications dir
         Stage stage = new Stage();
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Pick a Song");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
+        //add which filetype is valid
         fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Sound Files (*.mp3, *.wav)","*.mp3","*.wav"),
                 new FileChooser.ExtensionFilter("MP3 Files (*.mp3)", "*.mp3"),
                 new FileChooser.ExtensionFilter("WAV Files (*.wav)","*.wav")
         );
+        //put selected file into the url textfield
         File selectedFile = fileChooser.showOpenDialog(stage);
         txtUrl.setText(selectedFile.getPath());
     }

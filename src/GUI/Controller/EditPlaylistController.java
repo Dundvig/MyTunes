@@ -4,14 +4,14 @@ import GUI.Model.PlaylistModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.sql.Time;
 
-public class EditPlaylistController {
+public class EditPlaylistController extends AbstractController{
 
     public TextField txtTitle;
     private PlaylistModel playlistModel;
-
     public Button cancelWindow;
     public Button savePlaylist;
 
@@ -20,7 +20,7 @@ public class EditPlaylistController {
     }
 
     public void handleCancelWindow(ActionEvent actionEvent) {
-
+        cancel(cancelWindow);
 
     }
 
@@ -33,7 +33,7 @@ public class EditPlaylistController {
     }
 
     public Time getPlaylistDuration() {
-       return new Time(0);
+        return new Time(0);
     }
 
     public int getTotalSongs() {
@@ -45,4 +45,8 @@ public class EditPlaylistController {
         return 1;
     }
 
+    @Override
+    public void setup() {
+
+    }
 }

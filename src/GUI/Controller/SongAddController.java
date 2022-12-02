@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import java.sql.Time;
 
 public class SongAddController {
+public class SongAddController extends AbstractController {
     public TextField txtTitle;
     public TextField txtArtist;
     public Button btnAddSong;
@@ -18,11 +19,16 @@ public class SongAddController {
     public TextField txtURL;
     private SongModel songModel;
 
-    public SongAddController() throws Exception {
-        songModel = new SongModel();
+    public SongAddController() {
+        try {
+            songModel = new SongModel();
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
-    public void handleAdd(ActionEvent actionEvent) throws Exception {
+    public void handleAdd(ActionEvent actionEvent) {
         String title = txtTitle.getText();
         String artist = txtArtist.getText();
         String genre = txtGenre.getText();
@@ -35,7 +41,13 @@ public class SongAddController {
         try{
             songModel.createSong(title, artist, genre, timer, url);
         } catch (Exception e) {
+            displayError(e);
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void setup() {
+
     }
 }

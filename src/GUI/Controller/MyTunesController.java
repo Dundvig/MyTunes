@@ -12,10 +12,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
@@ -36,6 +38,10 @@ public class MyTunesController extends AbstractController implements Initializab
     public ImageView imgNext;
     public ImageView imgVolume;
     public Button btnClose;
+    public ListView lstPlaylist;
+    public ListView lstPlaylistSongs;
+    public TextField txtFilter;
+    public Text txtPlaying;
     private MyTunesModel myTunesModel;
     private SongModel songModel;
     public MyTunesController() {
@@ -53,13 +59,20 @@ public class MyTunesController extends AbstractController implements Initializab
 
 
     // Opens a new window to create a new playlist with title.
-    public void handleNewPlaylist(ActionEvent actionEvent) throws IOException {
-        Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditPlaylistView.fxml"));
-        Parent root = loader.load();
-        stage.setScene(new Scene(root));
-        stage.setTitle("New Playlist");
-        stage.show();
+    public void handleNewPlaylist(ActionEvent actionEvent) {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditPlaylistView.fxml"));
+            Parent root = null;
+            root = loader.load();
+            stage.setScene(new Scene(root));
+            stage.setTitle("New Playlist");
+            stage.show();
+        } catch (IOException e) {
+            displayError(e);
+            e.printStackTrace();
+        }
+
     }
 
     public void handleEditPlaylist(ActionEvent actionEvent) {
@@ -80,18 +93,23 @@ public class MyTunesController extends AbstractController implements Initializab
     public void handleAdd(ActionEvent actionEvent) {
     }
 
-    public void handleNewSong(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/GUI/View/SongAddView.fxml"));
-        AnchorPane pane = (AnchorPane) loader.load();
-
-        Stage dialogWindow = new Stage();
-        dialogWindow.setTitle("Add Song");
-        dialogWindow.initModality(Modality.WINDOW_MODAL);
-        dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
-        Scene scene = new Scene(pane);
-        dialogWindow.setScene(scene);
-        dialogWindow.show();
+    public void handleNewSong(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/GUI/View/SongAddView.fxml"));
+            AnchorPane pane = null;
+            pane = (AnchorPane) loader.load();
+            Stage dialogWindow = new Stage();
+            dialogWindow.setTitle("Add Song");
+            dialogWindow.initModality(Modality.WINDOW_MODAL);
+            dialogWindow.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+            Scene scene = new Scene(pane);
+            dialogWindow.setScene(scene);
+            dialogWindow.show();
+        } catch (IOException e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
     public void handleEditSong(ActionEvent actionEvent) throws IOException {
@@ -116,21 +134,18 @@ public class MyTunesController extends AbstractController implements Initializab
     }
 
     public void handleDeleteSong(ActionEvent actionEvent) {
-        Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
-        songModel.setSelectedSong(selectedSong);
         try {
-
+            Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
+            songModel.setSelectedSong(selectedSong);
             songModel.deleteSong(songModel.getSelectedSong());
         } catch (Exception e){
+            displayError(e);
             e.printStackTrace();
         }
     }
 
     public void handleClose(ActionEvent actionEvent) {
-        //get the stage
-        Stage stage = (Stage) btnClose.getScene().getWindow();
-        //close the stage
-        stage.close();
+        cancel(btnClose);
     }
 
     public void handleSearch(ActionEvent actionEvent) {
