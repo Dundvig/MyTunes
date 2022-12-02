@@ -4,6 +4,8 @@ import GUI.Model.SongModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class SongAddController {
     public TextField txtTitle;
@@ -24,6 +26,9 @@ public class SongAddController {
         String genre = txtGenre.getText();
         int timer = Integer.parseInt(txtTimer.getText());
         String url = txtURL.getText();
+
+        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        stage.close();
 
         try{
             songModel.createSong(title, artist, genre, timer, url);

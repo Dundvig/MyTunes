@@ -121,7 +121,10 @@ public class MyTunesController extends AbstractController implements Initializab
     }
 
     public void handleDeleteSong(ActionEvent actionEvent) {
+        Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
+        songModel.setSelectedSong(selectedSong);
         try {
+
             songModel.deleteSong(songModel.getSelectedSong());
         } catch (Exception e){
             e.printStackTrace();
