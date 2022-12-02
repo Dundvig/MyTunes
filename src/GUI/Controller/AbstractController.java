@@ -1,6 +1,7 @@
 package GUI.Controller;
 
 import GUI.Model.MTModel;
+import javafx.scene.control.Alert;
 
 public abstract class AbstractController {
     private MTModel mtModel;
@@ -15,5 +16,12 @@ public abstract class AbstractController {
     }
 
     public abstract void setup();
+
+    public void displayError(Throwable t) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Something went wrong");
+        alert.setHeaderText(t.getMessage());
+        alert.showAndWait();
+    }
 }
 

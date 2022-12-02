@@ -50,12 +50,7 @@ public class MyTunesController extends AbstractController implements Initializab
 
         lstSong.setItems(songModel.getObservableSongs());
     }
-    private void displayError(Throwable t) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Something went wrong");
-        alert.setHeaderText(t.getMessage());
-        alert.showAndWait();
-    }
+
 
     // Opens a new window to create a new playlist with title.
     public void handleNewPlaylist(ActionEvent actionEvent) throws IOException {
