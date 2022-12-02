@@ -9,7 +9,6 @@ import javafx.scene.Node;
 
 import java.sql.Time;
 
-public class SongAddController {
 public class SongAddController extends AbstractController {
     public TextField txtTitle;
     public TextField txtArtist;
