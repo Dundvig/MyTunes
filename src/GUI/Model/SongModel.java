@@ -37,6 +37,7 @@ public class SongModel {
     public void createSong(String title, String artist, String genre, int timer, String url) throws Exception {
         Song s = songManager.createSong(title, artist, genre, timer, url);
         songsToBeViewed.add(s);
+        songsToBeViewed.clear();
     }
 
     // Updates the Song
