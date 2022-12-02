@@ -5,6 +5,7 @@ import BLL.SongManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Time;
 import java.util.List;
 
 public class SongModel {
@@ -34,7 +35,7 @@ public class SongModel {
     }
 
     // Creates a new Song
-    public void createSong(String title, String artist, String genre, int timer, String url) throws Exception {
+    public void createSong(String title, String artist, String genre, Time timer, String url) throws Exception {
         Song s = songManager.createSong(title, artist, genre, timer, url);
         songsToBeViewed.add(s);
         songsToBeViewed.clear();

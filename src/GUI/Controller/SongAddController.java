@@ -7,6 +7,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
+import java.sql.Time;
+
 public class SongAddController {
     public TextField txtTitle;
     public TextField txtArtist;
@@ -24,7 +26,7 @@ public class SongAddController {
         String title = txtTitle.getText();
         String artist = txtArtist.getText();
         String genre = txtGenre.getText();
-        int timer = Integer.parseInt(txtTimer.getText());
+        Time timer = Time.valueOf(txtTimer.getText());
         String url = txtURL.getText();
 
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();

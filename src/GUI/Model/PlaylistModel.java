@@ -5,6 +5,7 @@ import BLL.PlaylistManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Time;
 import java.util.List;
 
 public class PlaylistModel {
@@ -32,8 +33,8 @@ public class PlaylistModel {
     }
 
     // Creates a new playlist
-    public void createNewPlaylist(String title, int duration, int totalSongs, int id) throws Exception {
-        Playlist p = playlistManager.createNewPlaylist(title, totalSongs, duration, id);
+    public void createNewPlaylist(String title, Time time, int totalSongs, int id) throws Exception {
+        Playlist p = playlistManager.createNewPlaylist(title, totalSongs, id, time);
         System.out.println(p.toString());
     }
 

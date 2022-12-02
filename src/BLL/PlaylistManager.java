@@ -5,6 +5,7 @@ import BLL.util.PlaylistSearcher;
 import DAL.IPlaylistDatabaseAcces;
 import DAL.db.PlaylistDAO_DB;
 
+import java.sql.Time;
 import java.util.List;
 
 public class PlaylistManager {
@@ -27,8 +28,8 @@ public class PlaylistManager {
     }
 
     // Creates a new playlist
-    public Playlist createNewPlaylist(String title, int totalSongs, int id, int duration) throws Exception {
-        return playlistDAO.createPlaylist(title, totalSongs, id, duration);
+    public Playlist createNewPlaylist(String title, int totalSongs, int id, Time time) throws Exception {
+        return playlistDAO.createPlaylist(title, totalSongs, time, id);
     }
 
     // Updates the selected playlist

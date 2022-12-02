@@ -137,7 +137,7 @@ public class MyTunesController extends AbstractController implements Initializab
     }
 
     public void handleBack(ActionEvent actionEvent) {
-
+        // Play the previous song.
     }
 
     public void handlePlay(ActionEvent actionEvent) {
@@ -146,7 +146,7 @@ public class MyTunesController extends AbstractController implements Initializab
     }
 
     public void handleNext(ActionEvent actionEvent) {
-
+        // Plays the next song.
     }
 
     public void handleVolume(MouseEvent mouseEvent) {

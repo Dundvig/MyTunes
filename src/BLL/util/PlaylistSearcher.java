@@ -2,6 +2,7 @@ package BLL.util;
 
 import BE.Playlist;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class PlaylistSearcher {
         List<Playlist> searchResult = new ArrayList<>();
 
         for (Playlist playlist : searchBase) {
-            if(compareToMovieTitle(query, playlist) || compareToPlaylistTime(query, playlist))
+            if(compareToPlaylistTitle(query, playlist) || compareToPlaylistTime(query, playlist))
             {
                 searchResult.add(playlist);
             }
@@ -20,10 +21,10 @@ public class PlaylistSearcher {
     }
 
     private boolean compareToPlaylistTime(String query, Playlist playlist) {
-        return Integer.toString(playlist.getTime()).contains(query);
+        return playlist.getTime().toString().contains(query);
     }
 
-    private boolean compareToMovieTitle(String query, Playlist playlist) {
+    private boolean compareToPlaylistTitle(String query, Playlist playlist) {
         return playlist.getTitle().toLowerCase().contains(query.toLowerCase());
     }
 

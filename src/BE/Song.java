@@ -1,15 +1,18 @@
 package BE;
 
+import java.sql.Time;
+import java.time.Duration;
+
 public class Song {
     private int id;
     private String title; // Title of the track.
     private String artist; // Name of the artist.
     private String genre; // Musical genre of the track.
-    private int timer; // Total time of the song in seconds.
+    private Time timer; // Total time of the song in seconds.
     private String url; // Path to the song in the recourse folder.
 
     // Constructor for our Song.
-    public Song(int id, String title, String artist, String genre, int timer, String url) {
+    public Song(int id, String title, String artist, String genre, Time timer, String url) {
         this.id = id;
         this.title = title;
         this.artist = artist;
@@ -46,10 +49,10 @@ public class Song {
         this.genre = genre;
     }
 
-    public int getTimer() {
+    public Time getTimer() {
         return timer;
     }
-    public void setTimer(int timer){this.timer = timer;}
+    public void setTimer(Time timer){this.timer = timer;}
 
     public String getURL() {
         return url;

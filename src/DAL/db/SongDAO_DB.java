@@ -27,7 +27,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 String title = rs.getString("Title");
                 String artist = rs.getString("Artist");
                 String genre = rs.getString("Genre");
-                int timer = rs.getInt("Time");
+                Time timer = rs.getTime("Time");
                 String url = rs.getString("URL");
 
                 Song song = new Song(id, title, artist, genre, timer, url);
@@ -41,7 +41,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     }
 
     @Override
-    public Song createSong(String title, String artist, String genre, int timer, String URL) throws Exception {
+    public Song createSong(String title, String artist, String genre, Time timer, String URL) throws Exception {
         
             String sql = "INSERT INTO song (Title, Artist, Genre, Time, URL) VALUES (?,?,?,?,?);";
 
@@ -54,7 +54,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 statement.setString(1, title);
                 statement.setString(2, artist);
                 statement.setString(3, genre);
-                statement.setInt(4, timer);
+                statement.setTime(4, timer);
                 statement.setString(5, URL);
 
                 //Run the specified SQL statement.
@@ -90,7 +90,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 statement.setString(1, updatedsong.getTitle());
                 statement.setString(2, updatedsong.getArtist());
                 statement.setString(3, updatedsong.getGenre());
-                statement.setInt(4, updatedsong.getTimer());
+                statement.setTime(4, updatedsong.getTimer());
                 statement.setString(5, updatedsong.getURL());
                 statement.setInt(6, updatedsong.getId());
 

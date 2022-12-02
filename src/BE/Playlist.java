@@ -1,12 +1,15 @@
 package BE;
 
+import java.sql.Time;
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Playlist {
 
     //private List<Song>
 
-    private final int time; // The entire duration of the playlist.
+    private final Time time; // The entire duration of the playlist.
 
     private String title; // The title of the playlist.
 
@@ -14,15 +17,17 @@ public class Playlist {
 
     private int id; // The id of the playlist.
 
+    public List<Song> songs = new ArrayList<>();
+
     // Constructor for the playlist.
-    public Playlist(int id, String title, int totalSongs, int time) {
-        this.time = time;
+    public Playlist(int id, String title, Time time, int totalSongs) {
         this.id = id;
+        this.time = time;
         this.totalSongs = totalSongs;
         this.title = title;
     }
 
-    public int getTime() {
+    public Time getTime() {
         return time;
     }
 

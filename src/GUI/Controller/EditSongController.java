@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Time;
 
 
 public class EditSongController extends AbstractController {
@@ -64,7 +65,7 @@ public class EditSongController extends AbstractController {
         try {
             String updatedTitle = txtTitle.getText();
             String updatedArtist = txtArtist.getText();
-            int updatedTimer = Integer.parseInt(txtTimer.getText());
+            Time updatedTimer = Time.valueOf(txtTimer.getText());
             String updatedMp3 = txtUrl.getText();
             Song updatedSong = new Song(songModel.getSelectedSong().getId(), updatedTitle, updatedArtist, songModel.getSelectedSong().getGenre(), updatedTimer, updatedMp3);
 

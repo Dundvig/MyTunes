@@ -6,6 +6,7 @@ import BLL.util.SongSearcher;
 import DAL.ISongDatabaseAccess;
 import DAL.db.SongDAO_DB;
 
+import java.sql.Time;
 import java.util.List;
 
 public class SongManager {
@@ -30,7 +31,7 @@ public class SongManager {
     }
 
     // Creates a new Song
-    public Song createSong(String title, String artist, String genre, int timer,  String url) throws Exception {
+    public Song createSong(String title, String artist, String genre, Time timer, String url) throws Exception {
         return songDAO.createSong(title, artist, genre, timer,  url);
     }
 
