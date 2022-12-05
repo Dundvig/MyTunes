@@ -2,7 +2,6 @@ package GUI.Controller;
 
 import GUI.Model.SongModel;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -15,10 +14,8 @@ import java.sql.Time;
 public class SongAddController extends AbstractController {
     public TextField txtTitle;
     public TextField txtArtist;
-    public Button btnAddSong;
-    public TextField txtGenre;
     public TextField txtTimer;
-    public TextField txtURL;
+    public TextField txtUrl;
     private SongModel songModel;
     public ComboBox cboxCategory;
 
@@ -61,16 +58,16 @@ public class SongAddController extends AbstractController {
     }
 
     public void handleSaveSong(ActionEvent actionEvent) {
+        try{
         String title = txtTitle.getText();
         String artist = txtArtist.getText();
         String genre = (String) cboxCategory.getSelectionModel().getSelectedItem();
         Time timer = Time.valueOf(txtTimer.getText());
-        String url = txtURL.getText();
+        String url = txtUrl.getText();
 
         Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         stage.close();
 
-        try{
             songModel.createSong(title, artist, genre, timer, url);
         } catch (Exception e) {
             displayError(e);
@@ -92,6 +89,7 @@ public class SongAddController extends AbstractController {
         );
         //put selected file into the url textfield
         File selectedFile = fileChooser.showOpenDialog(stage);
-        txtURL.setText(selectedFile.getPath());
+
+        txtUrl.setText(selectedFile.getPath());
     }
 }
