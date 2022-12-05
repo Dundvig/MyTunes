@@ -24,9 +24,9 @@ public class SongManager {
     }
 
     // Searches all the Songs
-    public List<Song> searchSongs() throws Exception {
+    public List<Song> searchSongs(String query) throws Exception {
         List<Song> allSongs = getAllSongs();
-        List<Song> searchResult = songSearcher.search(allSongs, "query");
+        List<Song> searchResult = songSearcher.search(allSongs, query);
         return searchResult;
     }
 

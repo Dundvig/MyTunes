@@ -142,7 +142,8 @@ public class MyTunesController extends AbstractController {
         cancel(btnClose);
     }
 
-    public void handleSearch(ActionEvent actionEvent) {
+    public void handleSearch(ActionEvent actionEvent) throws Exception {
+        songModel.searchSong(txtFilter.getText().toLowerCase());
     }
 
     public void handleBack(ActionEvent actionEvent) {

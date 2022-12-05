@@ -29,7 +29,7 @@ public class SongModel {
 
     // Searches for Songs in the DB
     public void searchSong(String query) throws Exception {
-        List<Song> searchResults = songManager.searchSongs();
+        List<Song> searchResults = songManager.searchSongs(query);
         songsToBeViewed.clear();
         songsToBeViewed.addAll(searchResults);
     }

@@ -10,7 +10,7 @@ public class SongSearcher {
         List<Song> searchResult = new ArrayList<>();
 
         for (Song song : searchBase) {
-            if(compareToSongTitle(query, song) || compareToSonglistTime(query, song))
+            if(compareToSongTitle(query, song) || compareToSongArtist(query, song))
             {
                 searchResult.add(song);
             }
@@ -19,8 +19,8 @@ public class SongSearcher {
         return searchResult;
     }
 
-    private boolean compareToSonglistTime(String query, Song song) {
-        return song.getTimer().toString().contains(query);
+    private boolean compareToSongArtist(String query, Song song) {
+        return song.getArtist().toLowerCase().contains(query.toLowerCase());
     }
 
     private boolean compareToSongTitle(String query, Song song) {
