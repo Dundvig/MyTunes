@@ -57,8 +57,7 @@ public class SongAddController extends AbstractController {
         stage.close();
     }
 
-    public void handleSaveSong(ActionEvent actionEvent) {
-        try{
+    public void handleSaveSong(ActionEvent actionEvent) throws Exception {
         String title = txtTitle.getText();
         String artist = txtArtist.getText();
         String genre = (String) cboxCategory.getSelectionModel().getSelectedItem();
@@ -69,10 +68,6 @@ public class SongAddController extends AbstractController {
         stage.close();
 
             songModel.createSong(title, artist, genre, timer, url);
-        } catch (Exception e) {
-            displayError(e);
-            e.printStackTrace();
-        }
     }
 
     public void handleFileChooser(ActionEvent actionEvent) {
