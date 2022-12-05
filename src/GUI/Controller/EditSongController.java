@@ -66,8 +66,9 @@ public class EditSongController extends AbstractController {
             String updatedTitle = txtTitle.getText();
             String updatedArtist = txtArtist.getText();
             Time updatedTimer = Time.valueOf(txtTimer.getText());
+            String updatedGenre = (String) cboxCategory.getSelectionModel().getSelectedItem();
             String updatedMp3 = txtUrl.getText();
-            Song updatedSong = new Song(songModel.getSelectedSong().getId(), updatedTitle, updatedArtist, songModel.getSelectedSong().getGenre(), updatedTimer, updatedMp3);
+            Song updatedSong = new Song(songModel.getSelectedSong().getId(), updatedTitle, updatedArtist, updatedGenre, updatedTimer, updatedMp3);
 
             songModel.updateSong(updatedSong);
 
@@ -84,7 +85,7 @@ public class EditSongController extends AbstractController {
         songModel = getModel().getSongModel();
         txtTitle.setText(songModel.getSelectedSong().getTitle());
         txtArtist.setText(songModel.getSelectedSong().getArtist());
-        //txtGenre.setText(songModel.getSelectedSong().getGenre());
+        cboxCategory.getSelectionModel().select(songModel.getSelectedSong().getGenre());
         txtTimer.setText(String.valueOf(songModel.getSelectedSong().getTimer()));
         txtUrl.setText(songModel.getSelectedSong().getURL());
         cboxCategory.getItems().addAll(category);
