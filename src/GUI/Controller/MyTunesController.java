@@ -26,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MyTunesController extends AbstractController implements Initializable {
+public class MyTunesController extends AbstractController {
 
     public ListView<Song> lstSong;
     public ImageView imgSearch;
@@ -42,14 +42,9 @@ public class MyTunesController extends AbstractController implements Initializab
     public ListView lstPlaylistSongs;
     public TextField txtFilter;
     public Text txtPlaying;
-    private MyTunesModel myTunesModel;
+    public Button btnEditSong;
     private SongModel songModel;
-    public MyTunesController() {
-    }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    }
     @Override
     public void setup() {
         songModel = getModel().getSongModel();
@@ -93,12 +88,15 @@ public class MyTunesController extends AbstractController implements Initializab
     public void handleAdd(ActionEvent actionEvent) {
     }
 
-    public void handleNewSong(ActionEvent actionEvent) {
-        try {
+    public void handleNewSong(ActionEvent actionEvent) throws IOException {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/GUI/View/SongAddView.fxml"));
-            AnchorPane pane = null;
-            pane = (AnchorPane) loader.load();
+            AnchorPane pane = (AnchorPane) loader.load();
+
+            SongAddController controller = loader.getController();
+            controller.setModel(super.getModel());
+            controller.setup();
+
             Stage dialogWindow = new Stage();
             dialogWindow.setTitle("Add Song");
             dialogWindow.initModality(Modality.WINDOW_MODAL);
@@ -106,10 +104,6 @@ public class MyTunesController extends AbstractController implements Initializab
             Scene scene = new Scene(pane);
             dialogWindow.setScene(scene);
             dialogWindow.show();
-        } catch (IOException e) {
-            displayError(e);
-            e.printStackTrace();
-        }
     }
 
     public void handleEditSong(ActionEvent actionEvent) throws IOException {

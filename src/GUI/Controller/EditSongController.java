@@ -2,20 +2,15 @@ package GUI.Controller;
 
 import BE.Song;
 import GUI.Model.SongModel;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Time;
 
 
@@ -24,7 +19,6 @@ public class EditSongController extends AbstractController {
     public TextField txtTitle;
 
     public TextField txtArtist;
-    public Button CancelSaveSong;
     public ComboBox cboxCategory;
     public TextField txtUrl;
     public TextField txtTimer;
