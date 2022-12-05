@@ -39,6 +39,7 @@ public class SongModel {
         Song s = songManager.createSong(title, artist, genre, timer, url);
         songsToBeViewed.add(s);
         songsToBeViewed.clear();
+        songsToBeViewed.addAll(songManager.getAllSongs());
     }
 
     // Updates the Song
