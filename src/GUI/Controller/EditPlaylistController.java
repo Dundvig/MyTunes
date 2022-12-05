@@ -15,20 +15,29 @@ public class EditPlaylistController extends AbstractController{
     public Button cancelWindow;
     public Button savePlaylist;
 
-    public EditPlaylistController() throws Exception {
-        playlistModel = new PlaylistModel();
+    public EditPlaylistController() {
+        try {
+            playlistModel = new PlaylistModel();
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
     public void handleCancelWindow(ActionEvent actionEvent) {
         cancel(cancelWindow);
-
     }
 
-    public void handleSavePlaylist(ActionEvent actionEvent) throws Exception {
+    public void handleSavePlaylist(ActionEvent actionEvent) {
+        try {
+            String title = txtTitle.getText();
 
-        String title = txtTitle.getText();
-
-        playlistModel.createNewPlaylist(title, getPlaylistDuration(), getTotalSongs(), getId());
+            playlistModel.createNewPlaylist(title, getPlaylistDuration(), getTotalSongs(), getId());
+            cancel(savePlaylist);
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
 
     }
 

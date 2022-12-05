@@ -3,16 +3,15 @@ package GUI.Controller;
 import BE.Song;
 import GUI.Model.MyTunesModel;
 import GUI.Model.SongModel;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -43,6 +42,7 @@ public class MyTunesController extends AbstractController {
     public TextField txtFilter;
     public Text txtPlaying;
     public Button btnEditSong;
+    public Slider sldrVolume;
     private SongModel songModel;
 
     @Override
@@ -63,9 +63,9 @@ public class MyTunesController extends AbstractController {
             stage.setScene(new Scene(root));
             stage.setTitle("New Playlist");
             stage.show();
-        } catch (IOException e) {
-            displayError(e);
-            e.printStackTrace();
+        } catch (IOException ex) {
+            displayError(ex);
+            ex.printStackTrace();
         }
 
     }
@@ -88,11 +88,12 @@ public class MyTunesController extends AbstractController {
     public void handleAdd(ActionEvent actionEvent) {
     }
 
-    public void handleNewSong(ActionEvent actionEvent) throws IOException {
+    public void handleNewSong(ActionEvent actionEvent) {
+        try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/GUI/View/SongAddView.fxml"));
-            AnchorPane pane = (AnchorPane) loader.load();
-
+            AnchorPane pane = null;
+            pane = (AnchorPane) loader.load();
             SongAddController controller = loader.getController();
             controller.setModel(super.getModel());
             controller.setup();
@@ -104,27 +105,39 @@ public class MyTunesController extends AbstractController {
             Scene scene = new Scene(pane);
             dialogWindow.setScene(scene);
             dialogWindow.show();
+        } catch (IOException ex) {
+            displayError(ex);
+            ex.printStackTrace();
+        }
+
+
     }
 
-    public void handleEditSong(ActionEvent actionEvent) throws IOException {
-        Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
-        songModel.setSelectedSong(selectedSong);
+    public void handleEditSong(ActionEvent actionEvent) {
+        try {
+            Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
+            songModel.setSelectedSong(selectedSong);
 
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/GUI/View/EditSongView.fxml"));
-        AnchorPane pane = (AnchorPane) loader.load();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/GUI/View/EditSongView.fxml"));
+            AnchorPane pane = null;
+            pane = (AnchorPane) loader.load();
 
-        EditSongController controller = loader.getController();
-        controller.setModel(super.getModel());
-        controller.setup();
+            EditSongController controller = loader.getController();
+            controller.setModel(super.getModel());
+            controller.setup();
 
-        Stage dialogWindow = new Stage();
-        dialogWindow.setTitle("Edit Song information");
-        dialogWindow.initModality(Modality.WINDOW_MODAL);
-        dialogWindow.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
-        Scene scene = new Scene(pane);
-        dialogWindow.setScene(scene);
-        dialogWindow.show();
+            Stage dialogWindow = new Stage();
+            dialogWindow.setTitle("Edit Song information");
+            dialogWindow.initModality(Modality.WINDOW_MODAL);
+            dialogWindow.initOwner(((Node) actionEvent.getSource()).getScene().getWindow());
+            Scene scene = new Scene(pane);
+            dialogWindow.setScene(scene);
+            dialogWindow.show();
+        } catch (IOException ex) {
+            displayError(ex);
+            ex.printStackTrace();
+        }
     }
 
     public void handleDeleteSong(ActionEvent actionEvent) {
@@ -151,8 +164,7 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handlePlay(ActionEvent actionEvent) {
-        MediaPlayer mp = new MediaPlayer(new Media(""));
-        mp.play();
+        
     }
 
     public void handleNext(ActionEvent actionEvent) {
@@ -160,5 +172,11 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handleVolume(MouseEvent mouseEvent) {
+        sldrVolume.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
+
+            }
+        });
     }
 }
