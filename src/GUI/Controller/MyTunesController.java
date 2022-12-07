@@ -1,7 +1,9 @@
 package GUI.Controller;
 
+import BE.Playlist;
 import BE.Song;
 import GUI.Model.MyTunesModel;
+import GUI.Model.PlaylistModel;
 import GUI.Model.SongModel;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -44,12 +46,15 @@ public class MyTunesController extends AbstractController {
     public Button btnEditSong;
     public Slider sldrVolume;
     private SongModel songModel;
+    private PlaylistModel playlistModel;
 
     @Override
     public void setup() {
         songModel = getModel().getSongModel();
+        playlistModel = getModel().getPlaylistModel();
 
         lstSong.setItems(songModel.getObservableSongs());
+        lstPlaylist.setItems(playlistModel.getObservablePlaylists());
     }
 
 
@@ -57,23 +62,59 @@ public class MyTunesController extends AbstractController {
     public void handleNewPlaylist(ActionEvent actionEvent) {
         try {
             Stage stage = new Stage();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditPlaylistView.fxml"));
-            Parent root = null;
-            root = loader.load();
-            stage.setScene(new Scene(root));
-            stage.setTitle("New Playlist");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/PlaylistAddView.fxml"));
+            AnchorPane pane = null;
+            pane = (AnchorPane) loader.load();
+
+            PlaylistAddController controller = loader.getController();
+            controller.setModel(super.getModel());
+            controller.setup();
+
+            stage.setScene(new Scene(pane));
+            stage.setTitle("Add Playlist");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
             stage.show();
         } catch (IOException ex) {
             displayError(ex);
             ex.printStackTrace();
         }
-
     }
 
     public void handleEditPlaylist(ActionEvent actionEvent) {
+        try {
+            Playlist selectedPlaylist = (Playlist) lstPlaylist.getSelectionModel().getSelectedItem();
+            playlistModel.setSelectedPlaylist(selectedPlaylist);
+
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditPlaylistView.fxml"));
+            AnchorPane pane = null;
+            pane = (AnchorPane) loader.load();
+
+            EditPlaylistController controller = loader.getController();
+            controller.setModel(super.getModel());
+            controller.setup();
+
+            stage.setScene(new Scene(pane));
+            stage.setTitle("Edit Playlist");
+            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initOwner(((Node)actionEvent.getSource()).getScene().getWindow());
+            stage.show();
+        } catch (IOException ex) {
+            displayError(ex);
+            ex.printStackTrace();
+        }
     }
 
     public void handleDelete(ActionEvent actionEvent) {
+        try {
+            Playlist selectedPlaylist = (Playlist) lstPlaylist.getSelectionModel().getSelectedItem();
+            playlistModel.setSelectedPlaylist(selectedPlaylist);
+            playlistModel.deletePlaylist(playlistModel.getSelectedPlaylist());
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
     public void handleSongUp(ActionEvent actionEvent) {
@@ -164,7 +205,7 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handlePlay(ActionEvent actionEvent) {
-        
+
     }
 
     public void handleNext(ActionEvent actionEvent) {
@@ -172,11 +213,7 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handleVolume(MouseEvent mouseEvent) {
-        sldrVolume.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
+        double volume = sldrVolume.getValue();
 
-            }
-        });
     }
 }

@@ -101,7 +101,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
         }
         catch (SQLException ex) {
             ex.printStackTrace();
-            throw new Exception();
+            throw new Exception("Could not update playlist", ex);
         }
     }
 
@@ -118,7 +118,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
             statement.execute();
         } catch (SQLException ex) {
             ex.printStackTrace();
-            throw new Exception();
+            throw new Exception("Could not delete playlist", ex);
         }
     }
 }

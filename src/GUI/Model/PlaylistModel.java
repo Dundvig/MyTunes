@@ -1,6 +1,7 @@
 package GUI.Model;
 
 import BE.Playlist;
+import BE.Song;
 import BLL.PlaylistManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,8 +11,9 @@ import java.util.List;
 
 public class PlaylistModel {
     private ObservableList<Playlist> playlistsToBeViewed;
-
+    private ObservableList<Song> playlistSongsToBeViewed;
     private PlaylistManager playlistManager;
+    private Playlist selectedPlaylist;
 
     // Constructor for the model
     public PlaylistModel() throws Exception {
@@ -24,6 +26,8 @@ public class PlaylistModel {
     public ObservableList<Playlist> getObservablePlaylists() {
         return playlistsToBeViewed;
     }
+
+    public ObservableList<Song> getObservablePlaylistSongs() { return playlistSongsToBeViewed; }
 
     // Searches for playlists in the DB
     public void searchPlaylist(String query) throws Exception {
@@ -56,4 +60,11 @@ public class PlaylistModel {
         playlistsToBeViewed.remove(deletedPlaylist);
     }
 
+    public Playlist getSelectedPlaylist() {
+        return selectedPlaylist;
+    }
+
+    public void setSelectedPlaylist(Playlist selectedPlaylist) {
+        this.selectedPlaylist = selectedPlaylist;
+    }
 }

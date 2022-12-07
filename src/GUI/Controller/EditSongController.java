@@ -2,10 +2,8 @@ package GUI.Controller;
 
 import BE.Song;
 import GUI.Model.SongModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -23,6 +21,8 @@ public class EditSongController extends AbstractController {
     public ComboBox cboxCategory;
     public TextField txtUrl;
     public TextField txtTimer;
+    public Button btnCancelSaveSong;
+    public Button btnSaveSong;
     private SongModel songModel;
     private final String[] category = {
             "Pop",
@@ -52,8 +52,7 @@ public class EditSongController extends AbstractController {
 
     public void handleCancelSaveSong(ActionEvent actionEvent) {
         //Close the window by clicking the cancel bottom.
-        Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        stage.close();
+        cancel(btnCancelSaveSong);
     }
 
     public void handleSaveSong(ActionEvent actionEvent) {
@@ -67,8 +66,7 @@ public class EditSongController extends AbstractController {
 
             songModel.updateSong(updatedSong);
 
-            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            stage.close();
+            cancel(btnSaveSong);
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();

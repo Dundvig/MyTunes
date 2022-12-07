@@ -3,6 +3,10 @@ package DAL.db;
 import BE.Song;
 import DAL.ISongDatabaseAccess;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +72,26 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                     id = rs.getInt(1);
                 }
 
+                /**
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(URL));
+                AudioFormat format = audioInputStream.getFormat();
+                long frames = audioInputStream.getFrameLength();
+                long fileLength = new File(URL).length();
+                int seconds = (int) ((fileLength) / format.getFrameRate());
+                int minutes = 0;
+                int hours = 0;
+                if (seconds >= 60) {
+                    seconds = seconds - 60;
+                    minutes++;
+                }
+                if (minutes >= 60) {
+                    minutes = minutes - 60;
+                    hours++;
+                }
+                String time = hours+":"+minutes+":"+seconds;
+                timer = Time.valueOf(time);
+                 */
+
                 //Create song object and send up the layers.
                 Song song = new Song(id, title, artist, genre, timer, URL);
                 return song;
@@ -100,7 +124,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
             }
             catch (SQLException ex) {
                 ex.printStackTrace();
-                throw new Exception();
+                throw new Exception("Could not update song", ex);
             }
         }
 
@@ -117,7 +141,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 statement.execute();
             } catch (SQLException ex) {
                 ex.printStackTrace();
-                throw new Exception();
+                throw new Exception("Could not delete song", ex);
             }
         }
 }

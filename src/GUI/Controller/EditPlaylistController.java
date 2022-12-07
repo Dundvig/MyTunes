@@ -1,10 +1,10 @@
 package GUI.Controller;
 
+import BE.Playlist;
 import GUI.Model.PlaylistModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.sql.Time;
 
@@ -30,9 +30,13 @@ public class EditPlaylistController extends AbstractController{
 
     public void handleSavePlaylist(ActionEvent actionEvent) {
         try {
-            String title = txtTitle.getText();
+            String updatedTitle = txtTitle.getText();
+            Time time = playlistModel.getSelectedPlaylist().getTime();
+            int totalSongs = playlistModel.getSelectedPlaylist().getTotalSongs();
 
-            playlistModel.createNewPlaylist(title, getPlaylistDuration(), getTotalSongs(), getId());
+            Playlist updatedPlaylist = new Playlist(playlistModel.getSelectedPlaylist().getId(), updatedTitle, time, totalSongs);
+            playlistModel.updatePlaylist(updatedPlaylist);
+
             cancel(savePlaylist);
         } catch (Exception e) {
             displayError(e);
@@ -56,6 +60,7 @@ public class EditPlaylistController extends AbstractController{
 
     @Override
     public void setup() {
-
+        playlistModel = getModel().getPlaylistModel();
+        txtTitle.setText(playlistModel.getSelectedPlaylist().getTitle());
     }
 }
