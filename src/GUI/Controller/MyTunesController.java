@@ -59,6 +59,7 @@ public class MyTunesController extends AbstractController {
 
         lstSong.setItems(songModel.getObservableSongs());
         lstPlaylist.setItems(playlistModel.getObservablePlaylists());
+        txtPlaying.setText("Select a song");
     }
 
 
@@ -206,57 +207,67 @@ public class MyTunesController extends AbstractController {
 
     public void handleBack(ActionEvent actionEvent) {
         // Play the previous song.
-        if(songNumber>1){
+        if(lstSong.getSelectionModel().getSelectedItem() != null && songNumber>1){
             songNumber--;
             mediaPlayer.stop();
             isPlaying = false;
+            lstSong.getSelectionModel().selectPrevious();
+            handlePlay(actionEvent);
+            //songPlaying = songModel.getObservableSongs().get(songNumber);
+        }else{
+            mediaPlayer.stop();
+            isPlaying = false;
+            lstSong.getSelectionModel().select(null);
+            txtPlaying.setText("Select a song");
 
-            songPlaying = songModel.getObservableSongs().get(songNumber);
-            playSong();
         }
     }
 
     public void handlePlay(ActionEvent actionEvent) {
-        if(!isPlaying) {
-            songPlaying = lstSong.getSelectionModel().getSelectedItem();
-            songNumber = songModel.getObservableSongs().indexOf(songPlaying);
-            playSong();
-            //mediaPlayer.currentCountProperty().addListener(ov -> {
-            //if(!slTime.isValueChanging()){
-            //updateTime();
-            //}
-            //} );
-        } else if(mediaPlayer != null) {
-            mediaPlayer.stop();
-            isPlaying = false;
+        if(lstSong.getSelectionModel().getSelectedItem() != null) {
+            if (!isPlaying) {
+                songPlaying = lstSong.getSelectionModel().getSelectedItem();
+                songNumber = songModel.getObservableSongs().indexOf(songPlaying);
+
+                file = new File(songPlaying.getURL());
+                path = file.getAbsolutePath();
+                path.replace("\\", "/");
+
+                media = new Media(new File(path).toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                sldrVolume.setValue(mediaPlayer.getVolume() * 100);
+                mediaPlayer.play();
+                isPlaying = true;
+                txtPlaying.setText(songPlaying.getTitle() + " " + "is playing");
+                mediaPlayer.setOnEndOfMedia(this::handleNext);
+                //mediaPlayer.currentCountProperty().addListener(ov -> {
+                //if(!slTime.isValueChanging()){
+                //updateTime();
+                //}
+                //} );
+            } else if (mediaPlayer != null) {
+                mediaPlayer.stop();
+                isPlaying = false;
+            }
         }
 
     }
 
     public void handleNext() {
         // Plays the next song.
-        if(songNumber < songModel.getObservableSongs().size()-1){
-        songNumber++;
-        mediaPlayer.stop();
-        isPlaying = false;
-
-        songPlaying = songModel.getObservableSongs().get(songNumber);
-            playSong();
+        if (lstSong.getSelectionModel().getSelectedItem() != null && songNumber < songModel.getObservableSongs().size() - 1) {
+            songNumber++;
+            mediaPlayer.stop();
+            isPlaying = false;
+            lstSong.getSelectionModel().selectNext();
+            handlePlay(new ActionEvent());
+            //songPlaying = songModel.getObservableSongs().get(songNumber);
+        } else{
+            mediaPlayer.stop();
+            isPlaying = false;
+            lstSong.getSelectionModel().select(null);
+            txtPlaying.setText("Select a song");
         }
-}
-
-    private void playSong() {
-        file = new File(songPlaying.getURL());
-        path = file.getAbsolutePath();
-        path.replace("\\", "/");
-
-        media = new Media(new File(path).toURI().toString());
-        mediaPlayer = new MediaPlayer(media);
-        sldrVolume.setValue(mediaPlayer.getVolume() * 100);
-        mediaPlayer.play();
-        isPlaying = true;
-        txtPlaying.setText(songPlaying.getTitle() + " " + "is playing");
-        mediaPlayer.setOnEndOfMedia(this::handleNext);
     }
 
     public void handleVolume(MouseEvent mouseEvent) {
