@@ -193,7 +193,7 @@
          </children>
       </FlowPane>
       <Slider fx:id="sldrVolume" layoutX="55.0" layoutY="76.0" onDragDetected="#handleVolume" />
-      <Text fx:id="txtPlaying" layoutX="353.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nothing Is Playing">
+      <Text fx:id="txtPlaying" layoutX="353.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font name="Arial" size="24.0" />
          </font>

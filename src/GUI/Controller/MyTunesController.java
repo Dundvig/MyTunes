@@ -2,16 +2,13 @@ package GUI.Controller;
 
 import BE.Playlist;
 import BE.Song;
-import GUI.Model.MyTunesModel;
 import GUI.Model.PlaylistModel;
 import GUI.Model.SongModel;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -23,9 +20,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.media.MediaPlayer;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MyTunesController extends AbstractController {
 
@@ -47,6 +43,14 @@ public class MyTunesController extends AbstractController {
     public Slider sldrVolume;
     private SongModel songModel;
     private PlaylistModel playlistModel;
+    private boolean isPlaying;
+    private MediaPlayer mediaPlayer;
+    private int songNumber;
+    private Song songPlaying;
+    private Media media;
+    private String path;
+    private File file;
+
 
     @Override
     public void setup() {
@@ -202,18 +206,66 @@ public class MyTunesController extends AbstractController {
 
     public void handleBack(ActionEvent actionEvent) {
         // Play the previous song.
+        if(songNumber>1){
+            songNumber--;
+            mediaPlayer.stop();
+            isPlaying = false;
+
+            songPlaying = songModel.getObservableSongs().get(songNumber);
+            playSong();
+        }
     }
 
     public void handlePlay(ActionEvent actionEvent) {
+        if(!isPlaying) {
+            songPlaying = lstSong.getSelectionModel().getSelectedItem();
+            songNumber = songModel.getObservableSongs().indexOf(songPlaying);
+            playSong();
+            //mediaPlayer.currentCountProperty().addListener(ov -> {
+            //if(!slTime.isValueChanging()){
+            //updateTime();
+            //}
+            //} );
+        } else if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            isPlaying = false;
+        }
 
     }
 
-    public void handleNext(ActionEvent actionEvent) {
+    public void handleNext() {
         // Plays the next song.
+        if(songNumber < songModel.getObservableSongs().size()-1){
+        songNumber++;
+        mediaPlayer.stop();
+        isPlaying = false;
+
+        songPlaying = songModel.getObservableSongs().get(songNumber);
+            playSong();
+        }
+}
+
+    private void playSong() {
+        file = new File(songPlaying.getURL());
+        path = file.getAbsolutePath();
+        path.replace("\\", "/");
+
+        media = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        sldrVolume.setValue(mediaPlayer.getVolume() * 100);
+        mediaPlayer.play();
+        isPlaying = true;
+        txtPlaying.setText(songPlaying.getTitle() + " " + "is playing");
+        mediaPlayer.setOnEndOfMedia(this::handleNext);
     }
 
     public void handleVolume(MouseEvent mouseEvent) {
-        double volume = sldrVolume.getValue();
+        sldrVolume.valueProperty().addListener(new InvalidationListener() {
+            @Override
+            public void invalidated(Observable observable) {
 
+                mediaPlayer.volumeProperty().bind(sldrVolume.valueProperty().divide(100));
+            }
+        });
     }
 }
