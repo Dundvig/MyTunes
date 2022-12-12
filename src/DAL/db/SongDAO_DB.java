@@ -72,26 +72,6 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                     id = rs.getInt(1);
                 }
 
-                /**
-                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(URL));
-                AudioFormat format = audioInputStream.getFormat();
-                long frames = audioInputStream.getFrameLength();
-                long fileLength = new File(URL).length();
-                int seconds = (int) ((fileLength) / format.getFrameRate());
-                int minutes = 0;
-                int hours = 0;
-                if (seconds >= 60) {
-                    seconds = seconds - 60;
-                    minutes++;
-                }
-                if (minutes >= 60) {
-                    minutes = minutes - 60;
-                    hours++;
-                }
-                String time = hours+":"+minutes+":"+seconds;
-                timer = Time.valueOf(time);
-                 */
-
                 //Create song object and send up the layers.
                 Song song = new Song(id, title, artist, genre, timer, URL);
                 return song;

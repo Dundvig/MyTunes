@@ -63,6 +63,9 @@ public class Playlist {
         this.songs = songs;
     }
 
+    public void addSong(Song song) {
+        this.songs.add(song);
+    }
     @Override
     public String toString(){ return title +", " + totalSongs + ", " + time; }
 }

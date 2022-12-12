@@ -20,6 +20,7 @@ public class PlaylistModel {
         playlistManager = new PlaylistManager();
         playlistsToBeViewed = FXCollections.observableArrayList();
         playlistsToBeViewed.addAll(playlistManager.getAllPlaylists());
+        playlistSongsToBeViewed = FXCollections.observableArrayList();
     }
 
     // Returns the playlist
@@ -27,6 +28,7 @@ public class PlaylistModel {
         return playlistsToBeViewed;
     }
 
+    // Returns songs of a playlist
     public ObservableList<Song> getObservablePlaylistSongs() { return playlistSongsToBeViewed; }
 
     // Searches for playlists in the DB
@@ -40,6 +42,10 @@ public class PlaylistModel {
     public void createNewPlaylist(String title, Time time, int totalSongs, int id) throws Exception {
         Playlist p = playlistManager.createNewPlaylist(title, totalSongs, id, time);
         System.out.println(p.toString());
+
+        //Update listview
+        playlistsToBeViewed.clear();
+        playlistsToBeViewed.addAll(playlistManager.getAllPlaylists());
     }
 
     // Updates the playlist
@@ -67,4 +73,13 @@ public class PlaylistModel {
     public void setSelectedPlaylist(Playlist selectedPlaylist) {
         this.selectedPlaylist = selectedPlaylist;
     }
+
+    public void addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) throws Exception {
+        playlistManager.addSongToPlaylist(selectedPlaylist,selectedSong);
+    }
+
+    public void getAllPlaylistSongs(Playlist playlist) {
+        playlistManager.getAllPlaylistSongs(playlist);
+    }
+
 }

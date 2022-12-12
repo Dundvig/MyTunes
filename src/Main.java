@@ -23,6 +23,7 @@ public class Main extends Application {
 
         primaryStage.setTitle("MyTunes");
         primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
     public static void main(String[] args) {

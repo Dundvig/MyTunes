@@ -4,10 +4,9 @@ import BE.Playlist;
 import BE.Song;
 
 import java.sql.Time;
-import java.time.Duration;
 import java.util.List;
 
-public interface IPlaylistDatabaseAcces {
+public interface IPlaylistDatabaseAccess {
 
     public List<Playlist> getAllPlaylists() throws Exception;
 
@@ -17,5 +16,9 @@ public interface IPlaylistDatabaseAcces {
     public void updatePlaylist(Playlist playlist) throws Exception;
 
     public void deletePlaylist(Playlist playlist) throws Exception;
+
+    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception;
+
+    public List<Song> getAllPlaylistSongs(Playlist playlist);
 
 }

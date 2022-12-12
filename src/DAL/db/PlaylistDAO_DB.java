@@ -1,13 +1,14 @@
 package DAL.db;
 
 import BE.Playlist;
-import DAL.IPlaylistDatabaseAcces;
+import BE.Song;
+import DAL.IPlaylistDatabaseAccess;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
+public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
     private DatabaseConnector databaseConnector;
 
     public PlaylistDAO_DB() { databaseConnector = new DatabaseConnector(); }
@@ -35,6 +36,35 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
             }
         }
         return allPlaylists;
+    }
+
+    public List<Song> getAllPlaylistSongs(Playlist playlist) {
+        ArrayList<Song> allPlaylistSongs = new ArrayList<>();
+        try (Connection conn = databaseConnector.getConnection()){
+            String sql = "SELECT s.* FROM PlaylistSongs ps INNER JOIN Song s ON s.Id = ps.SongId WHERE ps.PlaylistId = ?;";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, playlist.getId());
+
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("Id");
+                String title = rs.getString("Title");
+                String artist = rs.getString("Artist");
+                String genre = rs.getString("Genre");
+                Time time = rs.getTime("Time");
+                String url = rs.getString("URL");
+
+                Song song = new Song(id, title, artist, genre, time, url);
+                allPlaylistSongs.add(song);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Could not get playlist songs", e);
+        }
+        return allPlaylistSongs;
     }
 
     public static void main (String[] args) throws Exception {
@@ -119,6 +149,23 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAcces {
         } catch (SQLException ex) {
             ex.printStackTrace();
             throw new Exception("Could not delete playlist", ex);
+        }
+    }
+
+    // Add a song til a playlist.
+    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
+        try (Connection conn = databaseConnector.getConnection()){
+            String sql = "INSERT INTO PlaylistSongs VALUES(?,?)";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, playlist.getId());
+            stmt.setInt(2, song.getId());
+
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            throw new Exception("Could not add Song to playlist", ex);
         }
     }
 }

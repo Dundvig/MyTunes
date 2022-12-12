@@ -6,6 +6,7 @@ import GUI.Model.PlaylistModel;
 import GUI.Model.SongModel;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -15,10 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,8 +36,8 @@ public class MyTunesController extends AbstractController {
     public ImageView imgNext;
     public ImageView imgVolume;
     public Button btnClose;
-    public ListView lstPlaylist;
-    public ListView lstPlaylistSongs;
+    public ListView<Playlist> lstPlaylist;
+    public ListView<Song> lstPlaylistSongs;
     public TextField txtFilter;
     public Text txtPlaying;
     public Button btnEditSong;
@@ -132,6 +133,16 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handleAdd(ActionEvent actionEvent) {
+        try {
+            Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
+            Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
+
+            playlistModel.addSongToPlaylist(selectedPlaylist,selectedSong);
+            lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedPlaylist.getSongs()));
+        } catch (Exception e) {
+            displayError(e);
+            e.printStackTrace();
+        }
     }
 
     public void handleNewSong(ActionEvent actionEvent) {
@@ -278,5 +289,12 @@ public class MyTunesController extends AbstractController {
                 mediaPlayer.volumeProperty().bind(sldrVolume.valueProperty().divide(100));
             }
         });
+    }
+
+    public void onPlaylistClick(MouseEvent mouseEvent) {
+        Playlist selectedItem = lstPlaylist.getSelectionModel().getSelectedItem();
+        System.out.println("selectedItem.getSongs() = " + selectedItem.getSongs());
+        playlistModel.getAllPlaylistSongs(selectedItem);
+        lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedItem.getSongs()));
     }
 }

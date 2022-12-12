@@ -1,8 +1,9 @@
 package BLL;
 
 import BE.Playlist;
+import BE.Song;
 import BLL.util.PlaylistSearcher;
-import DAL.IPlaylistDatabaseAcces;
+import DAL.IPlaylistDatabaseAccess;
 import DAL.db.PlaylistDAO_DB;
 
 import java.sql.Time;
@@ -12,7 +13,7 @@ public class PlaylistManager {
 
     private PlaylistSearcher playlistSearcher = new PlaylistSearcher();
 
-    private IPlaylistDatabaseAcces playlistDAO;
+    private IPlaylistDatabaseAccess playlistDAO;
 
     public PlaylistManager() { playlistDAO = new PlaylistDAO_DB(); }
 
@@ -42,5 +43,13 @@ public class PlaylistManager {
         playlistDAO.deletePlaylist(deletedPlaylist);
     }
 
+    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception{
+        playlistDAO.addSongToPlaylist(playlist, song);
+        playlist.addSong(song);
+    }
 
+    public void getAllPlaylistSongs(Playlist playlist) {
+        List<Song> allPlaylistSongs = playlistDAO.getAllPlaylistSongs(playlist);
+        playlist.setSongs(allPlaylistSongs);
+    }
 }
