@@ -201,7 +201,12 @@ public class MyTunesController extends AbstractController {
         try {
             Song selectedSong = lstSong.getSelectionModel().getSelectedItem();
             songModel.setSelectedSong(selectedSong);
-            songModel.deleteSong(songModel.getSelectedSong());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("Are you sure you wanna delete this song?");
+            alert.showAndWait();
+            if(alert.getResult() == ButtonType.OK) {
+                songModel.deleteSong(songModel.getSelectedSong());
+            }
         } catch (Exception e){
             displayError(e);
             e.printStackTrace();
@@ -218,45 +223,65 @@ public class MyTunesController extends AbstractController {
 
     public void handleBack(ActionEvent actionEvent) {
         // Play the previous song.
-        if(lstSong.getSelectionModel().getSelectedItem() != null && songNumber>1){
+        if (lstPlaylistSongs.getSelectionModel().getSelectedItem() != null) {
             songNumber--;
             mediaPlayer.stop();
             isPlaying = false;
-            lstSong.getSelectionModel().selectPrevious();
+            lstPlaylistSongs.getSelectionModel().selectPrevious();
             handlePlay(actionEvent);
-            //songPlaying = songModel.getObservableSongs().get(songNumber);
-        }else{
+        } else {
             mediaPlayer.stop();
             isPlaying = false;
-            lstSong.getSelectionModel().select(null);
+            lstPlaylistSongs.getSelectionModel().select(null);
             txtPlaying.setText("Select a song");
+        }
 
+        if (lstSong.getSelectionModel().getSelectedItem() != null) {
+            if (songNumber > 0) {
+                songNumber--;
+                mediaPlayer.stop();
+                isPlaying = false;
+                lstSong.getSelectionModel().selectPrevious();
+                handlePlay(actionEvent);
+                //songPlaying = songModel.getObservableSongs().get(songNumber);
+            } else {
+                mediaPlayer.stop();
+                isPlaying = false;
+                lstSong.getSelectionModel().select(null);
+                txtPlaying.setText("Select a song");
+
+            }
         }
     }
 
     public void handlePlay(ActionEvent actionEvent) {
+        if(lstPlaylistSongs.getSelectionModel().getSelectedItem() != null){
+            if(!isPlaying){
+                songPlaying = lstPlaylistSongs.getSelectionModel().getSelectedItem();
+                songNumber = playlistModel.getObservablePlaylists().indexOf(songPlaying);
+                playSong();
+            }
+            else if(songPlaying != lstPlaylistSongs.getSelectionModel().getSelectedItem()){
+                mediaPlayer.stop();
+                isPlaying = false;
+                handlePlay(actionEvent);
+            }
+            else{
+                mediaPlayer.stop();
+                isPlaying = false;
+            }
+        }
         if(lstSong.getSelectionModel().getSelectedItem() != null) {
             if (!isPlaying) {
                 songPlaying = lstSong.getSelectionModel().getSelectedItem();
                 songNumber = songModel.getObservableSongs().indexOf(songPlaying);
-
-                file = new File(songPlaying.getURL());
-                path = file.getAbsolutePath();
-                path.replace("\\", "/");
-
-                media = new Media(new File(path).toURI().toString());
-                mediaPlayer = new MediaPlayer(media);
-                sldrVolume.setValue(mediaPlayer.getVolume() * 100);
-                mediaPlayer.play();
-                isPlaying = true;
-                txtPlaying.setText(songPlaying.getTitle() + " " + "is playing");
-                mediaPlayer.setOnEndOfMedia(this::handleNext);
-                //mediaPlayer.currentCountProperty().addListener(ov -> {
-                //if(!slTime.isValueChanging()){
-                //updateTime();
-                //}
-                //} );
-            } else if (mediaPlayer != null) {
+                playSong();
+            } else if(songPlaying != lstSong.getSelectionModel().getSelectedItem()){
+                mediaPlayer.stop();
+                isPlaying = false;
+                handlePlay(actionEvent);
+            }
+                else{
                 mediaPlayer.stop();
                 isPlaying = false;
             }
@@ -264,20 +289,47 @@ public class MyTunesController extends AbstractController {
 
     }
 
+    public void playSong(){
+        file = new File(songPlaying.getURL());
+        path = file.getAbsolutePath();
+        path.replace("\\", "/");
+
+        media = new Media(new File(path).toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        sldrVolume.setValue(mediaPlayer.getVolume() * 100);
+        mediaPlayer.play();
+        isPlaying = true;
+        txtPlaying.setText(songPlaying.getTitle() + " " + "is playing");
+        mediaPlayer.setOnEndOfMedia(this::handleNext);
+    }
+
     public void handleNext() {
         // Plays the next song.
-        if (lstSong.getSelectionModel().getSelectedItem() != null && songNumber < songModel.getObservableSongs().size() - 1) {
-            songNumber++;
-            mediaPlayer.stop();
-            isPlaying = false;
-            lstSong.getSelectionModel().selectNext();
-            handlePlay(new ActionEvent());
-            //songPlaying = songModel.getObservableSongs().get(songNumber);
-        } else{
-            mediaPlayer.stop();
-            isPlaying = false;
-            lstSong.getSelectionModel().select(null);
-            txtPlaying.setText("Select a song");
+        if(lstPlaylistSongs.getSelectionModel().getSelectedItem() != null) {
+                songNumber++;
+                mediaPlayer.stop();
+                isPlaying = false;
+                lstPlaylistSongs.getSelectionModel().selectNext();
+                handlePlay(new ActionEvent());
+            } else {
+                mediaPlayer.stop();
+                isPlaying = false;
+                lstPlaylistSongs.getSelectionModel().select(null);
+                txtPlaying.setText("Select a song");
+            }
+        if(lstSong.getSelectionModel().getSelectedItem() != null) {
+            if (songNumber < songModel.getObservableSongs().size() - 1) {
+                songNumber++;
+                mediaPlayer.stop();
+                isPlaying = false;
+                lstSong.getSelectionModel().selectNext();
+                handlePlay(new ActionEvent());
+            } else {
+                mediaPlayer.stop();
+                isPlaying = false;
+                lstSong.getSelectionModel().select(null);
+                txtPlaying.setText("Select a song");
+            }
         }
     }
 
@@ -296,5 +348,13 @@ public class MyTunesController extends AbstractController {
         System.out.println("selectedItem.getSongs() = " + selectedItem.getSongs());
         playlistModel.getAllPlaylistSongs(selectedItem);
         lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedItem.getSongs()));
+    }
+
+    public void handleLstSongsClicked(MouseEvent mouseEvent) {
+        lstPlaylistSongs.getSelectionModel().select(null);
+    }
+
+    public void handleLstPlaylistSongsClicked(MouseEvent mouseEvent) {
+        lstSong.getSelectionModel().select(null);
     }
 }
