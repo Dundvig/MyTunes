@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MyTunesController">
+<AnchorPane prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MyTunesController">
    <children>
       <GridPane hgap="10.0" layoutX="10.0" layoutY="119.0" prefHeight="479.0" prefWidth="880.0" vgap="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
         <columnConstraints>
@@ -38,7 +38,7 @@
                   <Insets />
                </GridPane.margin>
             </ListView>
-            <ListView fx:id="lstPlaylistSongs" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ListView fx:id="lstPlaylistSongs" onMouseClicked="#handleLstPlaylistSongsClicked" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <FlowPane prefHeight="400.0" prefWidth="430.0" GridPane.rowIndex="2">
                <children>
                   <Button fx:id="btnNewPlaylist" mnemonicParsing="false" onAction="#handleNewPlaylist" text="New">
@@ -132,7 +132,7 @@
                   </Button>
                </children>
             </FlowPane>
-            <ListView fx:id="lstSong" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <ListView fx:id="lstSong" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#handleLstSongsClicked" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Songs" GridPane.columnIndex="3" />
          </children>
       </GridPane>
