@@ -43,13 +43,20 @@ public class PlaylistManager {
         playlistDAO.deletePlaylist(deletedPlaylist);
     }
 
+    //Adds a song to a playlist
     public void addSongToPlaylist(Playlist playlist, Song song) throws Exception{
         playlistDAO.addSongToPlaylist(playlist, song);
         playlist.addSong(song);
     }
 
+    //Gets all songs of a playlist
     public void getAllPlaylistSongs(Playlist playlist) {
         List<Song> allPlaylistSongs = playlistDAO.getAllPlaylistSongs(playlist);
         playlist.setSongs(allPlaylistSongs);
+    }
+
+    //Deletes a song from a playlist
+    public void deletePlaylistSong(Playlist playlist, Song song) {
+        playlistDAO.deletePlaylistSong(playlist, song);
     }
 }

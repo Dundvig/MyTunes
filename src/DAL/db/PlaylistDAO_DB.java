@@ -38,15 +38,20 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
         return allPlaylists;
     }
 
+    //Get the songs connected to the playlist
     public List<Song> getAllPlaylistSongs(Playlist playlist) {
         ArrayList<Song> allPlaylistSongs = new ArrayList<>();
         try (Connection conn = databaseConnector.getConnection()){
+            //SQL to get the song connected to the playlist
             String sql = "SELECT s.* FROM PlaylistSongs ps INNER JOIN Song s ON s.Id = ps.SongId WHERE ps.PlaylistId = ?;";
 
+            //Prepare that shit to avoid injections
             PreparedStatement stmt = conn.prepareStatement(sql);
 
+            //Bind that shit
             stmt.setInt(1, playlist.getId());
 
+            //Get the things and set 'em
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int id = rs.getInt("Id");
@@ -56,6 +61,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
                 Time time = rs.getTime("Time");
                 String url = rs.getString("URL");
 
+                //Add it to the list yo
                 Song song = new Song(id, title, artist, genre, time, url);
                 allPlaylistSongs.add(song);
             }
@@ -65,6 +71,28 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
             throw new RuntimeException("Could not get playlist songs", e);
         }
         return allPlaylistSongs;
+    }
+
+    //Delete a song connected to a playlist
+    @Override
+    public void deletePlaylistSong(Playlist playlist, Song song) {
+        try (Connection conn = databaseConnector.getConnection()){
+            //SQL to get the right playlist and song
+            String sql = "DELETE FROM PlaylistSongs WHERE PlaylistId = ? AND SongId = ?;";
+
+            //Prepare that shit to avoid injections
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            //bind it to the right thing
+            stmt.setInt(1, playlist.getId());
+            stmt.setInt(2, song.getId());
+
+            //Do the thing
+            stmt.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Could not delete playlist song",e);
+        }
     }
 
     public static void main (String[] args) throws Exception {
@@ -155,13 +183,17 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
     // Add a song til a playlist.
     public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
         try (Connection conn = databaseConnector.getConnection()){
+            //SQL to connect a playlist and song
             String sql = "INSERT INTO PlaylistSongs VALUES(?,?)";
 
+            //Prepare that shit to avoid injection
             PreparedStatement stmt = conn.prepareStatement(sql);
 
+            //Bind it to the right thing
             stmt.setInt(1, playlist.getId());
             stmt.setInt(2, song.getId());
 
+            //Do the thing
             stmt.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

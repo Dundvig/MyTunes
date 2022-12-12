@@ -59,8 +59,11 @@ public class SongModel {
 
         songsToBeViewed.remove(deletedSong);
     }
+
+    //Get the selected song
     public Song getSelectedSong(){return selectedSong;}
 
+    //Set the selected song
     public void setSelectedSong(Song selectedSong){
         this.selectedSong = selectedSong;
     }

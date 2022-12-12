@@ -87,6 +87,7 @@ public class MyTunesController extends AbstractController {
         }
     }
 
+    //Open the edit playlist window to edit the selected playlist
     public void handleEditPlaylist(ActionEvent actionEvent) {
         try {
             Playlist selectedPlaylist = (Playlist) lstPlaylist.getSelectionModel().getSelectedItem();
@@ -112,6 +113,7 @@ public class MyTunesController extends AbstractController {
         }
     }
 
+    //Delete a playlist
     public void handleDelete(ActionEvent actionEvent) {
         try {
             Playlist selectedPlaylist = (Playlist) lstPlaylist.getSelectionModel().getSelectedItem();
@@ -129,9 +131,17 @@ public class MyTunesController extends AbstractController {
     public void handleSongDown(ActionEvent actionEvent) {
     }
 
+    //Deletes a song in a playlist
     public void handlePlaylistDeleteSong(ActionEvent actionEvent) {
+        //Get the selected playlist and song
+        Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
+        Song selectedSong = lstPlaylistSongs.getSelectionModel().getSelectedItem();
+
+        //Delete that shit
+        playlistModel.deletePlaylistSong(selectedPlaylist, selectedSong);
     }
 
+    //Adds a song to a playlist
     public void handleAdd(ActionEvent actionEvent) {
         try {
             Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
@@ -213,6 +223,7 @@ public class MyTunesController extends AbstractController {
         }
     }
 
+    //Close the window
     public void handleClose(ActionEvent actionEvent) {
         cancel(btnClose);
     }
@@ -343,9 +354,9 @@ public class MyTunesController extends AbstractController {
         });
     }
 
+    //Get the right list of song for the clicked playlist, you ookin dooker
     public void onPlaylistClick(MouseEvent mouseEvent) {
         Playlist selectedItem = lstPlaylist.getSelectionModel().getSelectedItem();
-        System.out.println("selectedItem.getSongs() = " + selectedItem.getSongs());
         playlistModel.getAllPlaylistSongs(selectedItem);
         lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedItem.getSongs()));
     }

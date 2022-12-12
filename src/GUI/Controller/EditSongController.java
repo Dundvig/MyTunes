@@ -84,6 +84,7 @@ public class EditSongController extends AbstractController {
         cboxCategory.getItems().addAll(category);
     }
 
+    //Pick a file with the filechooser
     public void handleFileChooser(ActionEvent actionEvent) {
         //create a new stage for picking files with the title "Pick a Song" and start in the applications dir
         Stage stage = new Stage();

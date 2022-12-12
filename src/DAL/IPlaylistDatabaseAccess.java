@@ -8,17 +8,19 @@ import java.util.List;
 
 public interface IPlaylistDatabaseAccess {
 
-    public List<Playlist> getAllPlaylists() throws Exception;
+    List<Playlist> getAllPlaylists() throws Exception;
+
+    void deletePlaylistSong(Playlist playlist, Song song);
 
     // Creates a new playlist.
     Playlist createPlaylist(String title, int id, Time time, int totalSongs) throws Exception;
 
-    public void updatePlaylist(Playlist playlist) throws Exception;
+    void updatePlaylist(Playlist playlist) throws Exception;
 
-    public void deletePlaylist(Playlist playlist) throws Exception;
+    void deletePlaylist(Playlist playlist) throws Exception;
 
-    public void addSongToPlaylist(Playlist playlist, Song song) throws Exception;
+    void addSongToPlaylist(Playlist playlist, Song song) throws Exception;
 
-    public List<Song> getAllPlaylistSongs(Playlist playlist);
+    List<Song> getAllPlaylistSongs(Playlist playlist);
 
 }

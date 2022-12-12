@@ -40,6 +40,7 @@ public class PlaylistAddController extends AbstractController{
     @Override
     public void setup() {playlistModel = getModel().getPlaylistModel();}
 
+    //Save the new playlist
     public void handleSavePlaylist(javafx.event.ActionEvent actionEvent) {
         try {
             String title = txtTitle.getText();
@@ -52,6 +53,7 @@ public class PlaylistAddController extends AbstractController{
         }
     }
 
+    //Close the window
     public void handleCancelWindow(ActionEvent actionEvent) {
         cancel(cancelWindow);
     }

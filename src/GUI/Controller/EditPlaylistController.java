@@ -24,19 +24,24 @@ public class EditPlaylistController extends AbstractController{
         }
     }
 
+    //Close the window
     public void handleCancelWindow(ActionEvent actionEvent) {
         cancel(cancelWindow);
     }
 
+    //Save edits made to playlist
     public void handleSavePlaylist(ActionEvent actionEvent) {
         try {
+            //Get all the things
             String updatedTitle = txtTitle.getText();
             Time time = playlistModel.getSelectedPlaylist().getTime();
             int totalSongs = playlistModel.getSelectedPlaylist().getTotalSongs();
 
+            //Update the thing
             Playlist updatedPlaylist = new Playlist(playlistModel.getSelectedPlaylist().getId(), updatedTitle, time, totalSongs);
             playlistModel.updatePlaylist(updatedPlaylist);
 
+            //Close the window
             cancel(savePlaylist);
         } catch (Exception e) {
             displayError(e);

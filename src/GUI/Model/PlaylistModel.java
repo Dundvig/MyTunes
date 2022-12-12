@@ -66,20 +66,29 @@ public class PlaylistModel {
         playlistsToBeViewed.remove(deletedPlaylist);
     }
 
+    //Get the selected playlist
     public Playlist getSelectedPlaylist() {
         return selectedPlaylist;
     }
 
+    //Set the selected playlist
     public void setSelectedPlaylist(Playlist selectedPlaylist) {
         this.selectedPlaylist = selectedPlaylist;
     }
 
+    //Add song to the selected playlist
     public void addSongToPlaylist(Playlist selectedPlaylist, Song selectedSong) throws Exception {
         playlistManager.addSongToPlaylist(selectedPlaylist,selectedSong);
     }
 
+    //Get all songs of a selected playlist
     public void getAllPlaylistSongs(Playlist playlist) {
         playlistManager.getAllPlaylistSongs(playlist);
     }
 
+    //Delete song from a playlist
+    public void deletePlaylistSong(Playlist playlist, Song song) {
+        playlistManager.deletePlaylistSong(playlist, song);
+        playlistSongsToBeViewed.remove(song);
+    }
 }

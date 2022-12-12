@@ -17,6 +17,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
 
     public SongDAO_DB() { databaseConnector = new DatabaseConnector(); }
 
+    //Get all songs and add it to a list
     @Override
     public List<Song> getAllSongs() throws Exception {
         ArrayList<Song> allSongs = new ArrayList<>();
@@ -44,6 +45,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
         }
     }
 
+    //Create a new song
     @Override
     public Song createSong(String title, String artist, String genre, Time timer, String URL) throws Exception {
         
