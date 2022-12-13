@@ -1,7 +1,6 @@
 package BE;
 
 import java.sql.Time;
-import java.time.Duration;
 
 public class Song {
     private int id;
@@ -21,6 +20,8 @@ public class Song {
         this.url = url;
 
     }
+
+    //Getters and setters for all our variables.
     public int getId() {
         return id;
     }

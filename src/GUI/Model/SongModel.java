@@ -15,27 +15,28 @@ public class SongModel {
 
     private Song selectedSong;
 
-    // Constructor for the model
     public SongModel() throws Exception {
+        //Constructor for the model
         songManager = new SongManager();
+        //Add all songs to the view.
         songsToBeViewed = FXCollections.observableArrayList();
         songsToBeViewed.addAll(songManager.getAllSongs());
     }
 
-    // Returns the Song
     public ObservableList<Song> getObservableSongs() {
+        //Returns the Song
         return songsToBeViewed;
     }
 
-    // Searches for Songs in the DB
     public void searchSong(String query) throws Exception {
+        //Searches for Songs in the DB
         List<Song> searchResults = songManager.searchSongs(query);
         songsToBeViewed.clear();
         songsToBeViewed.addAll(searchResults);
     }
 
-    // Creates a new Song
     public void createSong(String title, String artist, String genre, Time timer, String url) throws Exception {
+        //Creates a new Song
         Song s = songManager.createSong(title, artist, genre, timer, url);
         songsToBeViewed.add(s);
         songsToBeViewed.clear();

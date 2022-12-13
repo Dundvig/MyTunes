@@ -20,28 +20,30 @@ public class SongManager {
     }
 
     public List<Song> getAllSongs() throws Exception {
+        //Get all songs from the list of all songs.
         return songDAO.getAllSongs();
     }
 
-    // Searches all the Songs
     public List<Song> searchSongs(String query) throws Exception {
+        // Searches all the Songs
         List<Song> allSongs = getAllSongs();
         List<Song> searchResult = songSearcher.search(allSongs, query);
         return searchResult;
     }
 
-    // Creates a new Song
     public Song createSong(String title, String artist, String genre, Time timer, String url) throws Exception {
+        // Creates a new Song
         return songDAO.createSong(title, artist, genre, timer,  url);
     }
 
-    // Updates the selected Song
+
     public void updateSong(Song updatedSong) throws Exception{
+        // Updates the selected Song
         songDAO.updateSong(updatedSong);
     }
 
-    // Deletes the selected Song
     public void deleteSong(Song deletedSong) throws Exception {
+        // Deletes the selected Song
         songDAO.deleteSong(deletedSong);
     }
 

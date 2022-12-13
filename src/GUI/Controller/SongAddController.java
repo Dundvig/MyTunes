@@ -47,7 +47,9 @@ public class SongAddController extends AbstractController {
 
     @Override
     public void setup() {
+        //Getting the common model for the classes.
         songModel = getModel().getSongModel();
+        //Setting all the genres in the combo box.
         cboxCategory.getItems().addAll(category);
     }
 
@@ -58,16 +60,18 @@ public class SongAddController extends AbstractController {
     }
 
     public void handleSaveSong(ActionEvent actionEvent) {
+        //Save a new song in the database based on the user entered information.
         try {
+            //Bind the parameters for a song.
             String title = txtTitle.getText();
             String artist = txtArtist.getText();
             String genre = (String) cboxCategory.getSelectionModel().getSelectedItem();
             Time timer = Time.valueOf(txtTimer.getText());
             String url = txtUrl.getText();
-
+            //When the song is saved. close the window.
+            songModel.createSong(title, artist, genre, timer, url);
             Stage stage = (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
             stage.close();
-            songModel.createSong(title, artist, genre, timer, url);
         } catch (Exception e) {
             displayError(e);
             e.printStackTrace();
