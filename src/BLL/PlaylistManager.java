@@ -22,9 +22,9 @@ public class PlaylistManager {
     }
 
     // Searches all the playlists
-    public List<Playlist> searchPlaylists() throws Exception {
+    public List<Playlist> searchPlaylists(String query) throws Exception {
         List<Playlist> allPlaylists = getAllPlaylists();
-        List<Playlist> searchResult = playlistSearcher.search(allPlaylists, "query");
+        List<Playlist> searchResult = playlistSearcher.search(allPlaylists, query);
         return searchResult;
     }
 
