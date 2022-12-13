@@ -4,7 +4,6 @@ import GUI.Model.PlaylistModel;
 import javafx.event.ActionEvent;
 import javafx.scene.control.TextField;
 
-import java.awt.*;
 import java.sql.Time;
 
 public class PlaylistAddController extends AbstractController{

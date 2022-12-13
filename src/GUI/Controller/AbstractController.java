@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 
 public abstract class AbstractController {
     private MTModel mtModel;
-
+    //Getters and setters for Model choosing.
     public void setModel(MTModel mtModel)
     {
         this.mtModel = mtModel;

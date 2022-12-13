@@ -56,6 +56,7 @@ public class EditSongController extends AbstractController {
     }
 
     public void handleSaveSong(ActionEvent actionEvent) {
+        //Getting all the information from the text-fields.
         try {
             String updatedTitle = txtTitle.getText();
             String updatedArtist = txtArtist.getText();
@@ -63,7 +64,7 @@ public class EditSongController extends AbstractController {
             String updatedGenre = (String) cboxCategory.getSelectionModel().getSelectedItem();
             String updatedMp3 = txtUrl.getText();
             Song updatedSong = new Song(songModel.getSelectedSong().getId(), updatedTitle, updatedArtist, updatedGenre, updatedTimer, updatedMp3);
-
+            //Updating based on the new information.
             songModel.updateSong(updatedSong);
 
             cancel(btnSaveSong);
@@ -75,12 +76,16 @@ public class EditSongController extends AbstractController {
 
     @Override
     public void setup() {
+        //Getting the model
         songModel = getModel().getSongModel();
+        //When the FXML file is opened the setup is set to run
+        //So the already inserted information about a song is show and can be changes.
         txtTitle.setText(songModel.getSelectedSong().getTitle());
         txtArtist.setText(songModel.getSelectedSong().getArtist());
         cboxCategory.getSelectionModel().select(songModel.getSelectedSong().getGenre());
         txtTimer.setText(String.valueOf(songModel.getSelectedSong().getTimer()));
         txtUrl.setText(songModel.getSelectedSong().getURL());
+        //Setting all our genres in the Combo box.
         cboxCategory.getItems().addAll(category);
     }
 

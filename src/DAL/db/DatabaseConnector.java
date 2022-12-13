@@ -11,6 +11,7 @@ public class DatabaseConnector {
     // Constructor for the class. Everything is needed to connect to the database.
     public DatabaseConnector()
     {
+        //Setting the needed information for connection to the database.
         dataSource = new SQLServerDataSource();
         dataSource.setServerName("10.176.111.31");
         dataSource.setDatabaseName("My_Tunes_4");
@@ -21,6 +22,7 @@ public class DatabaseConnector {
 
     // Establishes a connection to the database.
     public Connection getConnection() throws SQLServerException {
+        //Connecting to the database.
         return dataSource.getConnection();
     }
 }

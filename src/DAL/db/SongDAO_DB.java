@@ -3,10 +3,6 @@ package DAL.db;
 import BE.Song;
 import DAL.ISongDatabaseAccess;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +13,16 @@ public class SongDAO_DB implements ISongDatabaseAccess {
 
     public SongDAO_DB() { databaseConnector = new DatabaseConnector(); }
 
-    //Get all songs and add it to a list
     @Override
     public List<Song> getAllSongs() throws Exception {
+        //Get all songs and add it to a list
         ArrayList<Song> allSongs = new ArrayList<>();
-
+        //Database connection and sql query.
         try (Connection conn = databaseConnector.getConnection()) {
             String sql = "SELECT * FROM Song";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
-
+            //
             while(rs.next()) {
                 int id = rs.getInt("Id");
                 String title = rs.getString("Title");
@@ -48,7 +44,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
     //Create a new song
     @Override
     public Song createSong(String title, String artist, String genre, Time timer, String URL) throws Exception {
-        
+        //Creating a song in the database by using an sql query.
             String sql = "INSERT INTO song (Title, Artist, Genre, Time, URL) VALUES (?,?,?,?,?);";
 
             try (Connection connection = databaseConnector.getConnection()) {
@@ -84,11 +80,11 @@ public class SongDAO_DB implements ISongDatabaseAccess {
             }
         }
 
-        // Updates a song.
         @Override
         public void updateSong(Song updatedsong) throws Exception {
+            // Updates a song.
             try (Connection connection = databaseConnector.getConnection()) {
-
+                //Update a song in the database by using an SQL query.
                 String sql = "UPDATE Song SET Title = ?, Artist = ?, Genre = ?, Time = ?, URL = ? WHERE Id = ?";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
@@ -100,7 +96,7 @@ public class SongDAO_DB implements ISongDatabaseAccess {
                 statement.setString(5, updatedsong.getURL());
                 statement.setInt(6, updatedsong.getId());
 
-
+                //Run the specified SQL statement.
                 statement.executeUpdate();
 
             }
@@ -110,9 +106,9 @@ public class SongDAO_DB implements ISongDatabaseAccess {
             }
         }
 
-        // Deletes the selected song.
         @Override
         public void deleteSong(Song song) throws Exception {
+            // Deletes the selected song based on a specific id.
             try (Connection connection = databaseConnector.getConnection()) {
                 String sql = "DELETE FROM Song WHERE id = ?";
 
