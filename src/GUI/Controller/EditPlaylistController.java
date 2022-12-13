@@ -50,15 +50,6 @@ public class EditPlaylistController extends AbstractController{
 
     }
 
-    public Time getPlaylistDuration() {
-        return new Time(0);
-    }
-
-    public int getTotalSongs() {
-        //return playlist.length();
-        return 0;
-    }
-
     public int getId() {
         return 1;
     }

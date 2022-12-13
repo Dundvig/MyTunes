@@ -1,14 +1,10 @@
 import GUI.Controller.MyTunesController;
 import GUI.Model.MTModel;
-import GUI.Model.MyTunesModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 
 public class Main extends Application {
 

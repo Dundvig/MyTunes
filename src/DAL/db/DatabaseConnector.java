@@ -8,6 +8,7 @@ import java.sql.Connection;
 public class DatabaseConnector {
     private SQLServerDataSource dataSource;
 
+    // Constructor for the class. Everything is needed to connect to the database.
     public DatabaseConnector()
     {
         dataSource = new SQLServerDataSource();
@@ -18,6 +19,7 @@ public class DatabaseConnector {
         dataSource.setTrustServerCertificate(true);
     }
 
+    // Establishes a connection to the database.
     public Connection getConnection() throws SQLServerException {
         return dataSource.getConnection();
     }

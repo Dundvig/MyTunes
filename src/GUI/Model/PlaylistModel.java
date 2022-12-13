@@ -33,7 +33,7 @@ public class PlaylistModel {
 
     // Searches for playlists in the DB
     public void searchPlaylist(String query) throws Exception {
-        List<Playlist> searchResults = playlistManager.searchPlaylists();
+        List<Playlist> searchResults = playlistManager.searchPlaylists(query);
         playlistsToBeViewed.clear();
         playlistsToBeViewed.addAll(searchResults);
     }
