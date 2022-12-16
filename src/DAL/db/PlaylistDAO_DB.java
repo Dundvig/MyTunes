@@ -167,11 +167,13 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
     @Override
     public void deletePlaylist(Playlist playlist) throws Exception {
         try (Connection connection = databaseConnector.getConnection()) {
-            String sql = "DELETE FROM Playlist WHERE id = ?";
+            String sql = "DELETE FROM PlaylistSongs WHERE PlaylistId = ?; DELETE FROM Playlist WHERE Id = ?";
 
             PreparedStatement statement = connection.prepareStatement(sql);
 
+            //Don't know why it says 2 is wrong, but it isn't!
             statement.setInt(1, playlist.getId());
+            statement.setInt(2, playlist.getId());
 
             statement.execute();
         } catch (SQLException ex) {

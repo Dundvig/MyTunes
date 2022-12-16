@@ -110,11 +110,13 @@ public class SongDAO_DB implements ISongDatabaseAccess {
         public void deleteSong(Song song) throws Exception {
             // Deletes the selected song based on a specific id.
             try (Connection connection = databaseConnector.getConnection()) {
-                String sql = "DELETE FROM Song WHERE id = ?";
+                String sql = "DELETE FROM PlaylistSongs WHERE SongId = ?; DELETE FROM Song WHERE id = ?";
 
                 PreparedStatement statement = connection.prepareStatement(sql);
 
+                //Don't know why it says 2 is wrong, but it isn't!
                 statement.setInt(1, song.getId());
+                statement.setInt(2, song.getId());
 
                 statement.execute();
             } catch (SQLException ex) {
