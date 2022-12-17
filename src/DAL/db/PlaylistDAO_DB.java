@@ -3,6 +3,7 @@ package DAL.db;
 import BE.Playlist;
 import BE.Song;
 import DAL.IPlaylistDatabaseAccess;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -43,7 +44,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
         ArrayList<Song> allPlaylistSongs = new ArrayList<>();
         try (Connection conn = databaseConnector.getConnection()){
             //SQL to get the song connected to the playlist
-            String sql = "SELECT s.* FROM PlaylistSongs ps INNER JOIN Song s ON s.Id = ps.SongId WHERE ps.PlaylistId = ?;";
+            String sql = "SELECT s.* FROM PlaylistSongs ps INNER JOIN Song s ON s.Id = ps.SongId WHERE ps.PlaylistId = ? ORDER BY [Order] ASC;";
 
             //Prepare that shit to avoid injections
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -186,7 +187,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
     public void addSongToPlaylist(Playlist playlist, Song song) throws Exception {
         try (Connection conn = databaseConnector.getConnection()){
             //SQL to connect a playlist and song
-            String sql = "INSERT INTO PlaylistSongs VALUES(?,?)";
+            String sql = "INSERT INTO PlaylistSongs VALUES(?,?,?)";
 
             //Prepare that shit to avoid injection
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -194,6 +195,7 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
             //Bind it to the right thing
             stmt.setInt(1, playlist.getId());
             stmt.setInt(2, song.getId());
+            stmt.setInt(3, playlist.getSongs().size());
 
             //Do the thing
             stmt.executeUpdate();
@@ -201,5 +203,24 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
             ex.printStackTrace();
             throw new Exception("Could not add Song to playlist", ex);
         }
+    }
+
+    @Override
+    public void swapSong(Playlist playlist, int songId, int toIndex) {
+        try (Connection conn = databaseConnector.getConnection()){
+            String sql = "UPDATE PlaylistSongs SET [Order] = ? WHERE PlaylistId = ? AND SongId = ?;";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+
+            stmt.setInt(1, toIndex);
+            stmt.setInt(2, playlist.getId());
+            stmt.setInt(3, songId);
+
+            int u = stmt.executeUpdate();
+            System.out.println("u = " + u);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

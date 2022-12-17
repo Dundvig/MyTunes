@@ -59,4 +59,15 @@ public class PlaylistManager {
     public void deletePlaylistSong(Playlist playlist, Song song) {
         playlistDAO.deletePlaylistSong(playlist, song);
     }
+
+    public void swapSong(Playlist playlist, Song s1, Song s2) {
+        System.out.println("playlist.getSongs() = " + playlist.getSongs());
+        int i1 = playlist.getSongs().indexOf(s1);
+        int i2 = playlist.getSongs().indexOf(s2);
+        System.out.println("playlist = " + playlist);
+        System.out.println("i1 = " + i1);
+        System.out.println("i2 = " + i2);
+        playlistDAO.swapSong(playlist, s1.getId(), i2);
+        playlistDAO.swapSong(playlist, s2.getId(), i1);
+    }
 }

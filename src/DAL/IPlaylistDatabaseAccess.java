@@ -22,5 +22,6 @@ public interface IPlaylistDatabaseAccess {
     void addSongToPlaylist(Playlist playlist, Song song) throws Exception;
 
     List<Song> getAllPlaylistSongs(Playlist playlist);
+    void swapSong(Playlist playlist, int songId, int toIndex);
 
 }

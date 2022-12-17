@@ -91,4 +91,8 @@ public class PlaylistModel {
         playlistManager.deletePlaylistSong(playlist, song);
         playlistSongsToBeViewed.remove(song);
     }
+
+    public void swapSong(Playlist playlist, Song s1, Song s2) {
+        playlistManager.swapSong(playlist, s1, s2);
+    }
 }

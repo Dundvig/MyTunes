@@ -23,6 +23,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
 public class MyTunesController extends AbstractController {
 
@@ -126,9 +128,23 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handleSongUp(ActionEvent actionEvent) {
+        Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
+        int selectedSong = lstPlaylistSongs.getSelectionModel().getSelectedIndex();
+        if (selectedSong == 0) return;
+        playlistModel.swapSong(selectedPlaylist, selectedPlaylist.getSongs().get(selectedSong), selectedPlaylist.getSongs().get(selectedSong-1));
+        Collections.swap(selectedPlaylist.getSongs(), selectedSong, selectedSong-1);
+        lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedPlaylist.getSongs()));
     }
 
     public void handleSongDown(ActionEvent actionEvent) {
+        Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
+        int selectedSong = lstPlaylistSongs.getSelectionModel().getSelectedIndex();
+        if (selectedPlaylist.getSongs().size() == selectedSong+1) return;
+        playlistModel.swapSong(selectedPlaylist, selectedPlaylist.getSongs().get(selectedSong), selectedPlaylist.getSongs().get(selectedSong+1));
+        System.out.println(selectedPlaylist.getSongs());
+        Collections.swap(selectedPlaylist.getSongs(), selectedSong, selectedSong+1);
+        System.out.println(selectedPlaylist.getSongs());
+        lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedPlaylist.getSongs()));
     }
 
     //Deletes a song in a playlist
