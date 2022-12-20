@@ -128,22 +128,29 @@ public class MyTunesController extends AbstractController {
     }
 
     public void handleSongUp(ActionEvent actionEvent) {
+        //Get the selected playlist and song
         Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
         int selectedSong = lstPlaylistSongs.getSelectionModel().getSelectedIndex();
+        //Check if it is the top song
         if (selectedSong == 0) return;
+        //Swap in db
         playlistModel.swapSong(selectedPlaylist, selectedPlaylist.getSongs().get(selectedSong), selectedPlaylist.getSongs().get(selectedSong-1));
+        //Swap in view
         Collections.swap(selectedPlaylist.getSongs(), selectedSong, selectedSong-1);
         lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedPlaylist.getSongs()));
     }
 
     public void handleSongDown(ActionEvent actionEvent) {
+        //Get the selected playlist and song
         Playlist selectedPlaylist = lstPlaylist.getSelectionModel().getSelectedItem();
         int selectedSong = lstPlaylistSongs.getSelectionModel().getSelectedIndex();
+
+        //Check if there is a song below
         if (selectedPlaylist.getSongs().size() == selectedSong+1) return;
+        //Swap in db
         playlistModel.swapSong(selectedPlaylist, selectedPlaylist.getSongs().get(selectedSong), selectedPlaylist.getSongs().get(selectedSong+1));
-        System.out.println(selectedPlaylist.getSongs());
+        //Swap in view
         Collections.swap(selectedPlaylist.getSongs(), selectedSong, selectedSong+1);
-        System.out.println(selectedPlaylist.getSongs());
         lstPlaylistSongs.setItems(FXCollections.observableArrayList(selectedPlaylist.getSongs()));
     }
 

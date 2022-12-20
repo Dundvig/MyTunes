@@ -205,21 +205,25 @@ public class PlaylistDAO_DB implements IPlaylistDatabaseAccess {
         }
     }
 
+    // Change the position of a song in a playlist
     @Override
     public void swapSong(Playlist playlist, int songId, int toIndex) {
         try (Connection conn = databaseConnector.getConnection()){
             String sql = "UPDATE PlaylistSongs SET [Order] = ? WHERE PlaylistId = ? AND SongId = ?;";
 
+            //prepare it
             PreparedStatement stmt = conn.prepareStatement(sql);
 
+            //bind it
             stmt.setInt(1, toIndex);
             stmt.setInt(2, playlist.getId());
             stmt.setInt(3, songId);
 
-            int u = stmt.executeUpdate();
-            System.out.println("u = " + u);
+            //do it
+            stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new RuntimeException("Could not move song", e);
         }
 
     }

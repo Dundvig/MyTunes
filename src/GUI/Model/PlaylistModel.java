@@ -92,6 +92,7 @@ public class PlaylistModel {
         playlistSongsToBeViewed.remove(song);
     }
 
+    //Swap song position in playlist
     public void swapSong(Playlist playlist, Song s1, Song s2) {
         playlistManager.swapSong(playlist, s1, s2);
     }
